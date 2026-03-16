@@ -1,0 +1,36 @@
+expression dStartDate =
+		let
+		    Source = Number.From(List.Min(#"All flow"[date])),
+		    #"Rounded Off" = Number.Round(Source, 0)
+		in
+		    #"Rounded Off"
+	lineageTag: b9974a50-03f1-4b9b-96eb-8b29437e96c8
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+
+expression dEndDate =
+		let
+		    Source = Number.From(List.Max(#"All flow"[date])),
+		    #"Rounded Off" = Number.Round(Source, 0)
+		in
+		    #"Rounded Off"
+	lineageTag: 97a4dce2-aaac-446d-9dbe-157c1da5e810
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+
+expression 'Start Date' = #date(2021, 2, 26) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
+	lineageTag: 80d4ab67-d107-446a-bd37-56cde9f454c6
+
+	annotation PBI_ResultType = Date
+
+expression 'End Date' = #date(2026, 12, 31) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
+	lineageTag: 1899bbe6-25db-44fd-9a00-078a4e50ea1e
+
+	annotation PBI_ResultType = Date
+
+	annotation PBI_NavigationStepName = Navigation
+

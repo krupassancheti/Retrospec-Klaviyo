@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "b4d88970c00277586996",
+  "position": {
+    "x": 35.03246670474136,
+    "y": 826.86960354897917,
+    "z": 4000,
+    "height": 281,
+    "width": 610.414333706607,
+    "tabOrder": 1000
+  },
+  "visualGroup": {
+    "displayName": "Klaviyo Open Rate",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

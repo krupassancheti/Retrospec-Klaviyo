@@ -1,0 +1,313 @@
+table campaign
+	lineageTag: 3abe5204-1a6d-41e0-9a74-2e84c3b145ac
+
+	measure 'Campaign Order 4 Week Average' =
+			CALCULATE(
+			AVERAGEX(
+			VALUES(CampaignDimDate[End of week]),
+			[cCONVERSIONS]
+			),
+			FILTER(
+			ALL(CampaignDimDate),
+			CampaignDimDate[End of week] >= MAX(CampaignDimDate[End of week])-4 &&
+			CampaignDimDate[End of week] <= MAX(CampaignDimDate[End of week])
+			)
+			)
+		lineageTag: ade872b4-5955-4bf4-86a7-4b548a078baa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Campaign ID'
+		dataType: string
+		lineageTag: b6f2ccdc-98db-481c-9fd8-0dd0abdeb4d3
+		summarizeBy: none
+		sourceColumn: Campaign ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Campaign Name'
+		dataType: string
+		lineageTag: 32cd265a-48a7-4806-b421-30c7e4b73028
+		summarizeBy: none
+		sourceColumn: Campaign Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Send Time'
+		dataType: string
+		lineageTag: a2d32d3c-f672-4705-a883-b52ae6ddf526
+		summarizeBy: none
+		sourceColumn: Send Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Received Email unique'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 76c92880-2d92-4195-998e-9def9b4673a5
+		summarizeBy: sum
+		sourceColumn: Received Email unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opened Email count'
+		dataType: int64
+		formatString: 0
+		lineageTag: bad70eef-6663-4d7d-85ab-c11c910a4ff9
+		summarizeBy: sum
+		sourceColumn: Opened Email count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opened Email unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: eba17205-c719-4637-b550-a9c7013e964c
+		summarizeBy: sum
+		sourceColumn: Opened Email unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clicked Email count'
+		dataType: int64
+		formatString: 0
+		lineageTag: f6707826-a077-4840-bcde-e9d74feb2a96
+		summarizeBy: sum
+		sourceColumn: Clicked Email count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clicked Email unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dde5980-dba8-49bb-93ab-8f7f81707be2
+		summarizeBy: sum
+		sourceColumn: Clicked Email unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bounced Email count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 18c1da03-606f-4e6a-8471-4b68ba8ef5c9
+		summarizeBy: sum
+		sourceColumn: Bounced Email count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d42fd32-3637-4269-a3bf-17ec512fa029
+		summarizeBy: sum
+		sourceColumn: Total Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f902f07-8565-4a16-afae-dc36d8fed647
+		summarizeBy: sum
+		sourceColumn: Unique Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Placed Order count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 239e503a-7d4f-4360-bbcd-e2f3ee186aa7
+		summarizeBy: sum
+		sourceColumn: Placed Order count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 262591d0-a44b-423e-8e64-979f1508194a
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: 69577244-2031-4b77-9048-1ee77e4cbce0
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subject
+		dataType: string
+		lineageTag: 86ed2eaa-809b-4a4a-929a-0216f454b613
+		summarizeBy: none
+		sourceColumn: Subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Preview Text'
+		dataType: string
+		lineageTag: 117e54e4-9aa0-4d53-8020-4342e93a3738
+		summarizeBy: none
+		sourceColumn: Preview Text
+
+		annotation SummarizationSetBy = Automatic
+
+	column List
+		dataType: string
+		lineageTag: 9c959d35-2b15-4f96-a21d-f40c6372ae32
+		summarizeBy: none
+		sourceColumn: List
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Excluded List'
+		dataType: string
+		lineageTag: 43830be5-0e61-40f2-b191-70cf7bacfe7c
+		summarizeBy: none
+		sourceColumn: Excluded List
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		dataType: string
+		lineageTag: ffaaafe3-7347-4c2f-846a-fb4398e3ab90
+		summarizeBy: none
+		sourceColumn: Day of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Campaign Channel'
+		dataType: string
+		lineageTag: 811bafb2-f1fd-4d31-9994-7c1568954f10
+		summarizeBy: none
+		sourceColumn: Campaign Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Send Date'
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 8fe890f2-596f-4396-ab8b-3f2063bf6fbe
+		summarizeBy: none
+		sourceColumn: Send Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition campaign = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("retrospecblob"),
+				    gold1 = Source{[Name="gold"]}[Data],
+				
+				    FileContent =
+				        gold1{
+				            [
+				                #"Folder Path" = "https://retrospecblob.blob.core.windows.net/gold/",
+				                Name = "klaviyo_data/campaign_selenium/campaign.csv"
+				            ]
+				        }[Content],
+				
+				    ImportedCSV =
+				        Csv.Document(
+				            FileContent,
+				            [
+				                Delimiter = ",",
+				                Columns = 22,
+				                Encoding = 65001,
+				                QuoteStyle = QuoteStyle.None
+				            ]
+				        ),
+				
+				    PromotedHeaders =
+				        Table.PromoteHeaders(
+				            ImportedCSV,
+				            [PromoteAllScalars = true]
+				        ),
+				
+				    RemovedColumns =
+				        Table.RemoveColumns(
+				            PromotedHeaders,
+				            {"Date"}
+				        ),
+				
+				    RenamedColumns =
+				        Table.RenameColumns(
+				            RemovedColumns,
+				            {
+				                {"Total Clicks", "Clicked Email count"},
+				                {"Unique Clicks", "Clicked Email unique"},
+				                {"Total Opens", "Opened Email count"},
+				                {"Unique Opens", "Opened Email unique"},
+				                {"Total Placed Order", "Placed Order count"},
+				                {"Total Placed Order Value", "Placed Order sum_value"},
+				                {"Total Recipients", "Received Email unique"},
+				                {"Bounces", "Bounced Email count"}
+				            }
+				        ),
+				
+				    // Change NON-date column types only
+				    ChangedType =
+				        Table.TransformColumnTypes(
+				            RenamedColumns,
+				            {
+				                {"Campaign ID", type text},
+				                {"Bounced Email count", Int64.Type},
+				                {"Clicked Email count", Int64.Type},
+				                {"Clicked Email unique", Int64.Type},
+				                {"Opened Email count", Int64.Type},
+				                {"Opened Email unique", Int64.Type},
+				                {"Placed Order count", Int64.Type},
+				                {"Placed Order sum_value", type number},
+				                {"Received Email unique", Int64.Type},
+				                {"Unique Unsubscribes", Int64.Type},
+				                {"Total Unsubscribes", Int64.Type}
+				            }
+				        ),
+				
+				    RenamedRevenue =
+				        Table.RenameColumns(
+				            ChangedType,
+				            {{"Placed Order sum_value", "Revenue"}}
+				        ),
+				
+				    RevenueType =
+				        Table.TransformColumnTypes(
+				            RenamedRevenue,
+				            {{"Revenue", Currency.Type}}
+				        ),
+				
+				    // ✅ SAFE Send Date parsing (handles yyyy-mm-dd & dd-mm-yyyy)
+				    FixedSendDate =
+				        Table.TransformColumns(
+				            RevenueType,
+				            {
+				                {
+				                    "Send Date",
+				                    each
+				                        let
+				                            txt = Text.Trim(Text.From(_))
+				                        in
+				                            if Text.Length(txt) = 10 and Text.Middle(txt, 4, 1) = "-"
+				                            then
+				                                Date.FromText(txt, "en-US")   // yyyy-mm-dd
+				                            else
+				                                Date.FromText(txt, "en-GB"), // dd-mm-yyyy
+				                    type date
+				                }
+				            }
+				        )
+				in
+				    FixedSendDate
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

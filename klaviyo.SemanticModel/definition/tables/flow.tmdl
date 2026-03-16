@@ -1,0 +1,172 @@
+table flow
+	lineageTag: f5219301-d3cf-4791-b784-bad7ad9af8ad
+
+	column 'Flow ID'
+		dataType: string
+		lineageTag: e0313e3e-5bd1-469c-b24e-a5458d83b154
+		summarizeBy: none
+		sourceColumn: Flow ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateFlow
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 17ab2e52-8643-47c9-92f6-445f4418b215
+		summarizeBy: none
+		sourceColumn: DateFlow
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Flow Name'
+		dataType: string
+		lineageTag: 3ebf988a-9edf-4694-8959-2520026998c8
+		summarizeBy: none
+		sourceColumn: Flow Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Message Channel'
+		dataType: string
+		lineageTag: 2ec92510-1331-49f7-887b-e92de6d41c11
+		summarizeBy: none
+		sourceColumn: Message Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 98f08da3-1c0a-4102-904d-b7035ea596f1
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Received Email unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: 20d154b3-6ca4-4a04-94f3-3300dcf29c54
+		summarizeBy: sum
+		sourceColumn: Received Email unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opened Email count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 635e9148-0b1a-4dd1-ae3d-2c701226e8f6
+		summarizeBy: sum
+		sourceColumn: Opened Email count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opened Email unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: 22317ff9-ef68-4c78-b652-71b7f5c9dc60
+		summarizeBy: sum
+		sourceColumn: Opened Email unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clicked Email count'
+		dataType: int64
+		formatString: 0
+		lineageTag: e6a1d3a1-5142-487d-a90f-f24330471f00
+		summarizeBy: sum
+		sourceColumn: Clicked Email count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clicked Email unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: b3e3e308-b5d0-401d-a59b-7f748dcfeaae
+		summarizeBy: sum
+		sourceColumn: Clicked Email unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bounced Email count'
+		dataType: int64
+		formatString: 0
+		lineageTag: b442ea68-5c39-466c-be94-1c8d3db4a76a
+		summarizeBy: sum
+		sourceColumn: Bounced Email count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unsubscribed count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9386b5aa-cd84-4e67-bc21-08c56f16fe7f
+		summarizeBy: sum
+		sourceColumn: Unsubscribed count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: f381f51c-bb6e-4319-9437-609ab16df39b
+		summarizeBy: sum
+		sourceColumn: Unique Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Placed Order count'
+		dataType: int64
+		formatString: 0
+		lineageTag: b32b7827-71b0-4310-9be1-5736f79a38be
+		summarizeBy: sum
+		sourceColumn: Placed Order count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f2a7a1e1-f589-40d2-9faa-f99a48fab52d
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tags
+		dataType: string
+		lineageTag: 208df106-9f2f-41a1-afc3-c19bdb136292
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Matching Flow Name' = ```
+			IF(CALCULATE(MAX(Klaviyo[Flow Name]), FILTER(Klaviyo, Klaviyo[Matching Title] =flow[Flow Name])) = BLANK(), flow[Flow Name],CALCULATE(MAX(Klaviyo[Flow Name]), FILTER(Klaviyo, Klaviyo[Matching Title] =flow[Flow Name]))) 
+			```
+		lineageTag: a0fff7ac-b4f8-48d0-8d7b-0268239d8670
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition flow = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("retrospecblob"),
+				    gold1 = Source{[Name="gold"]}[Data],
+				    #"https://retrospecblob blob core windows net/gold/_klaviyo_data/flow_selenium/flow csv" = gold1{[#"Folder Path"="https://retrospecblob.blob.core.windows.net/gold/",Name="klaviyo_data/flow_selenium/flow.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"https://retrospecblob blob core windows net/gold/_klaviyo_data/flow_selenium/flow csv",[Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Promoted Headers",{{"Day", "DateFlow"}, {"Bounces", "Bounced Email count"}, {"Total Clicks", "Clicked Email count"}, {"Unique Clicks", "Clicked Email unique"}, {"Total Opens", "Opened Email count"}, {"Unique Opens", "Opened Email unique"}, {"Total Placed Order", "Placed Order count"}, {"Total Placed Order Value", "Placed Order sum_value"}, {"Total Recipients", "Received Email unique"}, {"Total Unsubscribes", "Unsubscribed count"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"DateFlow", type datetime}, {"Flow ID", type text}, {"Bounced Email count", Int64.Type}, {"Clicked Email count", Int64.Type}, {"Clicked Email unique", Int64.Type}, {"Opened Email count", Int64.Type}, {"Opened Email unique", Int64.Type}, {"Placed Order count", Int64.Type}, {"Placed Order sum_value", type number}, {"Received Email unique", Int64.Type}, {"Unsubscribed count", Int64.Type}, {"Unique Unsubscribes", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Placed Order sum_value", "Revenue"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Revenue", Currency.Type}, {"DateFlow", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+

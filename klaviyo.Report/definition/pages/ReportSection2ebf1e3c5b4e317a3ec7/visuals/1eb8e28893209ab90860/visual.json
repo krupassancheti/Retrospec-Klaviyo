@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "1eb8e28893209ab90860",
+  "position": {
+    "x": 667,
+    "y": 1546.7056074598784,
+    "z": 7000,
+    "height": 281.32138857782752,
+    "width": 610.414333706607,
+    "tabOrder": 10000
+  },
+  "visualGroup": {
+    "displayName": "Klaviyo Revenue",
+    "groupMode": "ScaleMode"
+  }
+}

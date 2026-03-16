@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c87966ad7525b4120896",
+  "position": {
+    "x": 667,
+    "y": 944.70560745987427,
+    "z": 3000,
+    "height": 281.32138857782752,
+    "width": 610.414333706607,
+    "tabOrder": 5000
+  },
+  "visualGroup": {
+    "displayName": "Klaviyo Open",
+    "groupMode": "ScaleMode"
+  }
+}

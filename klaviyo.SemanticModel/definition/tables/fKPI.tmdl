@@ -1,0 +1,58 @@
+table fKPI
+	lineageTag: c308aca4-7c20-4409-bb06-2306bec5bbdb
+
+	column fKPI
+		lineageTag: 79a7a637-c4f3-4b35-b37e-25cf66e24bf9
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'fKPI Order'
+
+		relatedColumnDetails
+			groupByColumn: 'fKPI Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fKPI Fields'
+		isHidden
+		lineageTag: 7cd844b2-e07f-4757-8ce7-3fe34c0deea8
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'fKPI Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'fKPI Order'
+		isHidden
+		formatString: 0
+		lineageTag: 2e76daa1-d159-4f17-a686-622549cfea7b
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fKPI = calculated
+		mode: import
+		source =
+				{
+				    ("UNIQUE RECIPIENTS", NAMEOF('All_Measures'[FlowUnqRecipients]), 0),
+				    ("RECIPIENTS", NAMEOF('All_Measures'[FlowRecip]), 1),
+				    ("NO OF FLOWS", NAMEOF('All_Measures'[FlowNo of Flows]), 2),
+				    ("UNIQUE OPENS", NAMEOF('All_Measures'[FlowUnqOpens]), 3),
+				    ("UNIQUE CLICKS", NAMEOF('All_Measures'[FlowUnqClicks]), 4),
+				    ("CLICK TO RECIEVE RATE", NAMEOF('All_Measures'[FlowCLICK TO RECIEVE RATE]), 5),
+				    ("CONVERSIONS", NAMEOF('All_Measures'[FlowConversion]), 6),
+				    ("CONVERSION RATE", NAMEOF('All_Measures'[FlowCONVERSION RATE]), 7),
+				    ("REVENUE", NAMEOF('All_Measures'[FlowRevenue]), 8),
+				    ("UNIQUE UNSUBSCRIBES", NAMEOF('All_Measures'[FlowUnqUnsubscribes]), 9),
+				    ("UNSUBSCRIBE", NAMEOF('All_Measures'[FlowUnsubscribed]), 10),
+				    ("UNSUBSCRIBE RATE", NAMEOF('All_Measures'[FlowUnsubscribe rate]), 11)
+				}
+
+	annotation PBI_Id = 21660a1c15e34ac7abf11489001cae7f
+

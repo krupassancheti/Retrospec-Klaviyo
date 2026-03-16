@@ -1,0 +1,60 @@
+table 'cSG KPI'
+	lineageTag: 235a562f-82fa-4c61-8522-db6eac9f6ff1
+
+	column 'SG KPI'
+		lineageTag: d7396463-b862-47c5-919e-5f93dc7053db
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'SG KPI Order'
+
+		relatedColumnDetails
+			groupByColumn: 'SG KPI Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SG KPI Fields'
+		isHidden
+		lineageTag: a27ce8fa-e7d1-43a8-b3aa-3b153b9fed82
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'SG KPI Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SG KPI Order'
+		isHidden
+		formatString: 0
+		lineageTag: c7f58b51-b20f-47f8-b427-3aea1f4c946f
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'cSG KPI' = calculated
+		mode: import
+		source =
+				{
+				    ("Recipients", NAMEOF('All_Measures'[cSG_Recipients]), 0),
+				    ("Unique opens", NAMEOF('All_Measures'[cSG_Unique_Opens]), 1),
+				    ("Open rate", NAMEOF('All_Measures'[cSG_Open_rate]), 2),
+				    ("Unique clicks", NAMEOF('All_Measures'[cSG_Unique_Clicks]), 3),
+				    ("Click rate", NAMEOF('All_Measures'[cSG_Click_rate]), 4),
+				    ("Email bounces", NAMEOF('All_Measures'[cSG_Email_Bounces]), 5),
+				    ("Email bounces rate", NAMEOF('All_Measures'[cSG_Email_bounces_rate]), 6),
+				    ("Unsubscribes", NAMEOF('All_Measures'[cSG_Unique_Unsubscribes]), 7),
+				    ("Unsubscribe rate", NAMEOF('All_Measures'[cSG_Unsubscribe_rate]), 8),
+				    ("Spam complaints", NAMEOF('All_Measures'[cSG_Spam_Complaints]), 9),
+				    ("Spam complaints rate", NAMEOF('All_Measures'[cSG_Spam_complaints_rate]), 10),
+				    ("Orders", NAMEOF('All_Measures'[cSG_Orders]), 11),
+				    ("Conversion rate", NAMEOF('All_Measures'[cSG_Conversion_rate]), 12),
+				    ("Revenue", NAMEOF('All_Measures'[cSG_Revenue]), 13)
+				}
+
+	annotation PBI_Id = 1fd4d922855845c49980633f340bfba6
+

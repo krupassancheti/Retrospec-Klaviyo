@@ -1,0 +1,99 @@
+table 'All flow'
+	lineageTag: 07d45e74-9654-4746-bc97-6eac910ac7e2
+
+	measure AFTotal_Recipients = SUM('All flow'[total_recipients])
+		formatString: 0
+		lineageTag: eab64cf5-d155-4e31-8916-f6472dd8c4a5
+
+	measure AFUnique_Recipients = SUM('All flow'[unique_recipients])
+		formatString: 0
+		lineageTag: 5c131e3b-6dc9-418e-8d3d-b8e5a696d402
+
+	column date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: cffac3d0-4d95-4588-b1db-674598488506
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Flow_name
+		dataType: string
+		lineageTag: a380c094-6637-403c-b037-5e0a641b94ed
+		summarizeBy: none
+		sourceColumn: Flow_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: 71ac89d8-60ca-405c-9c12-1a43cf819498
+		summarizeBy: sum
+		sourceColumn: unique_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: a32f1b3a-9178-4258-9d0a-c3ddca06f3d1
+		summarizeBy: sum
+		sourceColumn: total_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_unsubscribers
+		dataType: int64
+		formatString: 0
+		lineageTag: 06079649-2d61-4236-ba3f-0a1764ff61a5
+		summarizeBy: sum
+		sourceColumn: unique_unsubscribers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date type'
+		dataType: string
+		lineageTag: c62221ee-7305-4962-9122-eb17339b5cfe
+		summarizeBy: none
+		sourceColumn: Date type
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxis =
+			
+			SWITCH(
+			    TRUE(),
+			    'All flow'[Date type] = "Day", FORMAT( 'All flow'[date], "MM-DD-YYYY" ),
+			    'All flow'[Date type] = "Week",FORMAT( RELATED ( DailyDimDate[Start of Week] ), "MM-DD-YYYY"),
+			    'All flow'[Date type] = "Month", FORMAT( 'All flow'[date], "MMM-YY" )
+			)
+		lineageTag: f6aab6a5-b22a-42a6-b30f-6d04f4789e0a
+		summarizeBy: none
+		sortByColumn: date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'All flow' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1gmx5TpWxjtrV_Qn6D9_uWRxfBlfQGQQmf4A2zckcaIU/edit?gid=1304444880"),
+				    #"All flow_Table" = Source{[name="All flow",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"All flow_Table", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type datetime}, {"Flow_name", type text}, {"unique_recipients", Int64.Type}, {"total_recipients", Int64.Type}, {"unique_unsubscribers", Int64.Type}, {"Date type", type text}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"date", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

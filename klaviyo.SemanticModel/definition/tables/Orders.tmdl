@@ -1,0 +1,127 @@
+table Orders
+	lineageTag: ca98f552-7b11-4d9b-bca5-d9022209c20d
+
+	column ID
+		dataType: string
+		lineageTag: 37543e92-714b-4bfb-b6f7-1ac2eb760ed8
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SOURCE_NAME
+		dataType: string
+		lineageTag: 86474b30-209c-42ba-88a7-2f66d45c172d
+		summarizeBy: none
+		sourceColumn: SOURCE_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column CREATED_AT
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 28b3c1ef-f28d-49c0-ad86-f2693f39bf04
+		summarizeBy: none
+		sourceColumn: CREATED_AT
+
+		variation Variation
+			isDefault
+			relationship: 434240f8-0b68-4277-8b47-b5fabf553679
+			defaultHierarchy: LocalDateTable_3edc6231-dd06-4188-a0b3-8d585b98452b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column SUBTOTAL_PRICE
+		dataType: double
+		lineageTag: 49d33f24-1922-4e33-9747-144bfdabeb7f
+		summarizeBy: sum
+		sourceColumn: SUBTOTAL_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_LINE_ITEMS_PRICE
+		dataType: double
+		lineageTag: 76b92a32-b5a5-4503-8a24-3bab54c9aaba
+		summarizeBy: sum
+		sourceColumn: TOTAL_LINE_ITEMS_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SHIPPING_PRICE
+		dataType: double
+		lineageTag: b3b0a79d-628c-49c6-9e85-baa4b81cb512
+		summarizeBy: sum
+		sourceColumn: SHIPPING_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_DISCOUNTS
+		dataType: double
+		lineageTag: abce85ed-eeb0-4c13-ad12-b8974c5e28d6
+		summarizeBy: sum
+		sourceColumn: TOTAL_DISCOUNTS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_PRICE
+		dataType: double
+		lineageTag: 2e02df96-1b2b-4fd0-a6c9-42aabe394d4f
+		summarizeBy: sum
+		sourceColumn: TOTAL_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_NAME
+		dataType: string
+		lineageTag: 04e55dc4-f053-49d2-96e8-37544c9cbb61
+		summarizeBy: none
+		sourceColumn: ORDER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Date =
+			var a = CALCULATE(MAX(Tranx_Status[Order_Date]),FILTER(Tranx_Status,Tranx_Status[ORDER_ID]=Orders[ID]&& Tranx_Status[KIND]<>"Refund"&&Tranx_Status[STATUS] in {"Success","Pending"}))
+			
+			return IF(a<>BLANK(),a,Orders[CREATED_AT])
+		formatString: mm/dd/yyyy
+		lineageTag: 03479895-411f-4b78-b62a-a28bea995250
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition Orders = m
+		mode: import
+		queryGroup: 'Transform File from gold\Helper Queries'
+		source =
+				let
+				    Source = Snowflake.Databases("pm42754.west-us-2.azure.snowflakecomputing.com", "COMPUTE_WH", null),
+				    POWERBI_Database = Source{[Name="POWERBI",Kind="Database"]}[Data],
+				    SHOPIFY__Schema = POWERBI_Database{[Name="SHOPIFY_",Kind="Schema"]}[Data],
+				    Table = SHOPIFY__Schema{[Name="ORDERS",Kind="Table"]}[Data],
+				    #"Removed Other Columns1" = Table.SelectColumns(Table,{"ID","SOURCE_NAME", "CREATED_AT", "SUBTOTAL_PRICE", "TOTAL_LINE_ITEMS_PRICE", "TOTAL_SHIPPING_PRICE_SET","TOTAL_DISCOUNTS", "TOTAL_PRICE", "NAME"  }),
+				    #"Parsed JSON" = Table.TransformColumns(#"Removed Other Columns1",{{"TOTAL_SHIPPING_PRICE_SET", Json.Document}}),
+				    #"Expanded TOTAL_SHIPPING_PRICE_SET" = Table.ExpandRecordColumn(#"Parsed JSON", "TOTAL_SHIPPING_PRICE_SET", {"shop_money"}, {"TOTAL_SHIPPING_PRICE_SET.shop_money"}),
+				    #"Expanded TOTAL_SHIPPING_PRICE_SET.shop_money" = Table.ExpandRecordColumn(#"Expanded TOTAL_SHIPPING_PRICE_SET", "TOTAL_SHIPPING_PRICE_SET.shop_money", {"amount"}, {"TOTAL_SHIPPING_PRICE_SET.shop_money.amount"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded TOTAL_SHIPPING_PRICE_SET.shop_money",{{"TOTAL_SHIPPING_PRICE_SET.shop_money.amount", "SHIPPING_PRICE"}, {"NAME", "ORDER_NAME"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"ID", type text}, {"SHIPPING_PRICE", type number}, {"CREATED_AT", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

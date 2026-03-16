@@ -1,0 +1,86 @@
+table 'Flow Message Parameter'
+	lineageTag: 64d33f9a-3bc4-45da-ab45-829d7954d5b8
+
+	column 'Flow Message Parameter'
+		lineageTag: 974cc8bd-609c-4f8d-b4b5-b08276fc97eb
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Flow Message Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Flow Message Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow Message Parameter Fields'
+		isHidden
+		lineageTag: a9d8d53b-6672-476d-b529-cc07db0d8d0b
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Flow Message Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow Message Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 614e3293-86cd-4870-9a13-71e36609ef7c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Flow Message Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Recipients", NAMEOF('All_Measures'[FM Recipients]), 0),
+				    ("LY_Recipients", NAMEOF('1_New Measures'[FMR_LY]), 1),
+				    ("Recipients Change", NAMEOF('1_New Measures'[FMR_Change]), 2),
+				    ("Recipients Change %", NAMEOF('1_New Measures'[FMR_Change%]), 3),
+				    ("Unique Opens", NAMEOF('All_Measures'[FM Unique Opens]), 4),
+				    ("LY_Unique Opens", NAMEOF('1_New Measures'[FMUO_LY]), 5),
+				    ("Unique Opens Change", NAMEOF('1_New Measures'[FMUO_Change]), 6),
+				    ("Unique Opens Change %", NAMEOF('1_New Measures'[FMUO_Change%]), 7),
+				    ("Unique Clicks", NAMEOF('All_Measures'[FM Unique Clicks]), 8),
+				    ("LY_Unique Clicks", NAMEOF('1_New Measures'[FMUC_LY]), 9),
+				    ("Unique Clicks Change", NAMEOF('1_New Measures'[FMUC_Change]), 10),
+				    ("Unique Clicks Change %", NAMEOF('1_New Measures'[FMUC_Change%]), 11),
+				    ("Click Rate", NAMEOF('All_Measures'[FM Click Rate]), 12),
+				    ("LY_Click Rate", NAMEOF('1_New Measures'[FMCR_LY]), 13),
+				    ("Click Rate Change", NAMEOF('1_New Measures'[FMCR_Change]), 14),
+				    ("Click Rate Change %", NAMEOF('1_New Measures'[FMCR_Change%]), 15),
+				    ("Open Rate", NAMEOF('All_Measures'[FM Open Rate]), 16),
+				    ("LY_Open Rate", NAMEOF('1_New Measures'[FMOR_LY]), 17),
+				    ("Open Rate Change", NAMEOF('1_New Measures'[FMOR_Change]), 18),
+				    ("Open Rate Change %", NAMEOF('1_New Measures'[FMOR_Change%]), 19),
+				    ("Orders", NAMEOF('All_Measures'[FM Orders]), 20),
+				    ("LY_Orders", NAMEOF('1_New Measures'[FMORD_LY]), 21),
+				    ("Orders Change", NAMEOF('1_New Measures'[FMORD_Change]), 22),
+				    ("Orders Change %", NAMEOF('1_New Measures'[FMORD_Change%]), 23),
+				    ("Conv. Rate", NAMEOF('All_Measures'[FM Conv. Rate]), 24),
+				    ("LY_Conv. Rate", NAMEOF('1_New Measures'[FMCONVR_LY]), 25),
+				    ("Conv. Rate Change", NAMEOF('1_New Measures'[FMCONVR_Change]), 26),
+				    ("Conv. Rate Change %", NAMEOF('1_New Measures'[FMCONVR_Change%]), 27),
+				    ("Revenue", NAMEOF('All_Measures'[FM Revenue]), 28),
+				    ("LY_Revenue", NAMEOF('1_New Measures'[FMREV_LY]), 29),
+				    ("Revenue Change", NAMEOF('1_New Measures'[FMREV_Change]), 30),
+				    ("Revenue Change %", NAMEOF('1_New Measures'[FMREV_Change%]), 31),
+				    ("AOV", NAMEOF('All_Measures'[FM Avg. Order Value]), 32),
+				    ("LY_AOV", NAMEOF('1_New Measures'[FMAOV_LY]), 33),
+				    ("AOV Change", NAMEOF('1_New Measures'[FMAOV_Change]), 34),
+				    ("AOV Change %", NAMEOF('1_New Measures'[FMAOV_Change%]), 35),
+				    ("Unsubscribed", NAMEOF('All_Measures'[FM Unsubscribed]), 36),
+				    ("LY_Unsubscribed", NAMEOF('1_New Measures'[FMUNSUB_LY]), 37),
+				    ("Unsubscribed Change", NAMEOF('1_New Measures'[FMUNSUB_Change]), 38),
+				    ("Unsubscribed Change %", NAMEOF('1_New Measures'[FMUNSUB_Change%]), 39)
+				}
+
+	annotation PBI_Id = 94067f0406244c4ea2e20aff61864ff6
+

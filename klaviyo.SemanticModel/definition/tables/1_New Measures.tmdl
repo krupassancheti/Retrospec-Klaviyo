@@ -1,0 +1,346 @@
+table '1_New Measures'
+	lineageTag: d3150599-6c8b-4739-bd3b-dd69cae693cc
+
+	measure FUR_LY =
+			CALCULATE(
+			    [FlowUnqRecipients],
+			    DATEADD( dailydimdate[Date], -1, YEAR )
+			)
+		formatString: #,0
+		lineageTag: e89f4b06-aa41-4d40-8920-049c638851f9
+
+	measure FUR_Change = [FlowUnqRecipients] - [FUR_LY]
+		formatString: #,0
+		lineageTag: 186dfad9-f538-405e-acec-f9e909e61194
+
+	measure FUR_Change% = DIVIDE( [FUR_Change], [FUR_LY] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: fdcc071d-4fd9-494d-b86e-444a668d6f6e
+
+	measure FR_LY = CALCULATE([FlowRecip], DATEADD(dailydimdate[Date], -1, YEAR))
+		lineageTag: 625dc70f-7639-4880-a262-74a12981e123
+
+	measure FR_Change = [FlowRecip] - [FR_LY]
+		lineageTag: a348b929-77dc-4f1d-9927-1345097705a2
+
+	measure FR_Change% = DIVIDE([FR_Change], [FR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0af165c9-640d-40d6-8379-55d608e63674
+
+	measure FUO_LY = CALCULATE([FlowUnqOpens], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		lineageTag: 8c198cd9-8957-4e29-bff1-c8bc8d2ff070
+
+	measure FUO_Change = [FlowUnqOpens] - [FUO_LY]
+		formatString: #,0
+		lineageTag: 6fc8561e-68f5-43d4-97c9-3341c3af5458
+
+	measure FUO_Change% = DIVIDE([FUO_Change], [FUO_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 693450bc-1e4b-473b-9330-09ddf9fa825f
+
+	measure FOR_LY = CALCULATE([FlowOpenRate], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3d4a4ef6-613c-4187-810d-581f6e07c9aa
+
+	measure FOR_Change = [FlowOpenRate] - [FOR_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 17ff5d25-0a0a-4511-a168-d8bcdd82e5f8
+
+	measure 'FOR_Change% ' = DIVIDE([FOR_Change], [FOR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 392c38d1-81e1-4a7c-8067-e8305884f572
+
+	measure FUC_LY = CALCULATE([FlowUnqClicks], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		lineageTag: 05ed412a-55ab-49a7-801e-19de1d176a52
+
+	measure FUC_Change = [FlowUnqClicks] - [FUC_LY]
+		formatString: #,0
+		lineageTag: 5a017f5a-5fc7-4401-9957-69fb82a436b5
+
+	measure 'FUC_Change% ' = DIVIDE([FUC_Change], [FUC_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 296f6c7a-ee72-41a7-904e-72be674f1793
+
+	measure FCR_LY = CALCULATE([FlowClickRate], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3860a36a-969c-4518-b100-42062c76938d
+
+	measure FCR_Change = [FlowClickRate] - [FCR_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f4762bc0-ce12-436b-8092-9f5a7d9adde0
+
+	measure FCR_Change% = DIVIDE([FCR_Change], [FCR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f2b53050-a363-45c4-a24c-f8002d0c8417
+
+	measure FREV_LY = CALCULATE([FlowRevenue], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 6db9a304-dfbc-4308-a7f3-b07316cc79c6
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure FREV_Change = [FlowRevenue] - [FREV_LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 2640032d-2f48-464e-a69d-c1d5646e157f
+
+	measure FREV_Change% = DIVIDE([FREV_Change], [FREV_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 05dc1fa8-9254-4741-b34b-ecf0a17778ee
+
+	measure FCONV_LY = CALCULATE([FlowConversion], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		lineageTag: e22837fb-11f4-4032-b5d1-d11f43389775
+
+	measure FCONV_Change = [FlowConversion] - [FCONV_LY]
+		formatString: #,0
+		lineageTag: 35e4b138-2948-40fa-855f-5ddbebb4fb73
+
+	measure FCONV_Change% = DIVIDE([FCONV_Change], [FCONV_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c9f55695-1140-493a-8f70-679eb409a044
+
+	measure FCRATE_LY = CALCULATE([FlowCONVERSION RATE], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 3fac1ffc-d213-4222-acf1-a120586c0be2
+
+	measure FCRATE_Change = [FlowCONVERSION RATE] - [FCRATE_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: d9a7e947-5a8d-4441-95f7-4ed0f1b9fc9a
+
+	measure 'FCRATE_Change% ' = DIVIDE([FCRATE_Change], [FCRATE_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1ad01c2d-b3c2-4eed-9eb2-456eb89fad40
+
+	measure FAOV_LY = CALCULATE([FlowAOV], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b8f554ee-19ab-4cab-bfeb-2a419e792a13
+
+	measure FAOV_Change = [FlowAOV] - [FAOV_LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 3e38af6e-8f70-44e1-a25e-641bb2ddceb6
+
+	measure 'FAOV_Change% ' = DIVIDE([FAOV_Change], [FAOV_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1e650a6d-a259-4929-8349-fc4404ce6b61
+
+	measure FUUNSUB_LY = CALCULATE([FlowUnqUnsubscribes], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		lineageTag: d5c3c2e9-9640-4343-b412-a36454041f61
+
+	measure FUUNSUB_Change = [FlowUnqUnsubscribes] - [FUUNSUB_LY]
+		formatString: #,0
+		lineageTag: be481a68-55da-4cc2-8f50-625b4d9fef23
+
+	measure FUUNSUB_Change% = DIVIDE([FUUNSUB_Change], [FUUNSUB_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bf239de0-debc-4cce-986d-44e09085dba9
+
+	measure FUNSUB_LY = CALCULATE([FlowUnsubscribed], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		lineageTag: bc418aeb-c2cf-4b75-8e23-88ea2a0e70ea
+
+	measure FUNSUB_Change = [FlowUnsubscribed] - [FUNSUB_LY]
+		formatString: #,0
+		lineageTag: 286c6e3a-7a0c-4f4f-aa73-148afb255b30
+
+	measure 'FUNSUB_Change% ' = DIVIDE([FUNSUB_Change], [FUNSUB_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0f065448-74df-4dad-8644-5815b26a5a2b
+
+	measure FURATE_LY = CALCULATE([FlowUnsubscribe rate], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 44ca1b8e-bb57-46a5-82da-1a35800079b0
+
+	measure FURATE_Change = [FlowUnsubscribe rate] - [FURATE_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f5b775c9-811b-4d1d-bba0-4a65c6ada4cb
+
+	measure FURATE_Change% = DIVIDE([FURATE_Change], [FURATE_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0e250531-b74f-44b5-ad38-fd52a9760f3b
+
+	measure ChangeColor = ```
+			
+			VAR v = SELECTEDMEASURE()
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    v > 0, "Green",
+			    v < 0, "Red",
+			    "Black"
+			)
+			
+			
+			```
+		displayFolder: 00 Flow Message
+		lineageTag: d2ca18d3-9db2-4d60-9a8a-1a46403ccd2c
+
+	measure FMR_LY = CALCULATE([FM Recipients], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 81dac9b5-0d24-4a32-afd2-2606f421c2a2
+
+	measure FMR_Change = [FM Recipients] - [FMR_LY]
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: f7d09500-e882-4a20-8e4c-b4ad65888d32
+
+	measure FMR_Change% = DIVIDE([FMR_Change], [FMR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: f0864770-4940-420a-a2e7-526d6d074600
+
+	measure FMUO_LY = CALCULATE([FM Unique Opens], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 90848595-867d-486b-b10a-d42305fc83c6
+
+	measure FMUO_Change = [FM Unique Opens] - [FMUO_LY]
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 7a262fb3-bb3a-4ec2-90dc-1afb905516f4
+
+	measure FMUO_Change% = DIVIDE([FMUO_Change], [FMUO_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: dc536d84-ad47-48b0-b2ba-69a5784de922
+
+	measure FMUC_LY = CALCULATE([FM Unique Clicks], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 72cca93f-4c33-4bc7-bc00-ed86ed2eae3b
+
+	measure FMUC_Change = [FM Unique Clicks] - [FMUC_LY]
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 419d66d7-30b9-4f67-b156-e4c84db90718
+
+	measure FMUC_Change% = DIVIDE([FMUC_Change], [FMUC_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: f864dcd5-d505-4a45-a857-1b76df35fa66
+
+	measure FMCR_LY = CALCULATE([FM Click Rate], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: d6aab3e6-a4da-41e4-8c6b-3308f8550eef
+
+	measure FMCR_Change = [FM Click Rate] - [FMCR_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: 2c9cac4e-be35-4373-b5a0-fa39fbb17ed5
+
+	measure FMCR_Change% = DIVIDE([FMCR_Change], [FMCR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: ca21a96b-9fb1-4f6d-be0c-d3a93abe5a29
+
+	measure FMOR_LY = CALCULATE([FM Open Rate], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: 07434dcd-17fb-496b-b95a-907ebae4b56b
+
+	measure FMOR_Change = [FM Open Rate] - [FMOR_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: 8ab546d1-216c-42ac-a420-cdd889b487e0
+
+	measure FMOR_Change% = DIVIDE([FMOR_Change], [FMOR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: d24442dc-6745-4f77-b09f-75c08f2f9603
+
+	measure FMORD_LY = CALCULATE([FM Orders], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 209b8e0a-049b-4af1-8b9e-e2c8f623e77e
+
+	measure FMORD_Change = [FM Orders] - [FMORD_LY]
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 4a5ca713-80b8-4e25-9f09-12bf558fd484
+
+	measure FMORD_Change% = DIVIDE([FMORD_Change], [FMORD_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: 8153fa31-29a9-41e8-baea-7bdb0061a861
+
+	measure FMCONVR_LY = CALCULATE([FM Conv. Rate], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: ebc20e1a-d202-4603-9b05-7655f7e05718
+
+	measure FMCONVR_Change = [FM Conv. Rate] - [FMCONVR_LY]
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: 288c0bbb-0393-4001-8a41-53082f76b122
+
+	measure FMCONVR_Change% = DIVIDE([FMCONVR_Change], [FMCONVR_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: f3046a41-0ee5-410e-aaec-3e5a43b18135
+
+	measure FMREV_LY = CALCULATE([FM Revenue], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 00 Flow Message
+		lineageTag: e64e9fc4-cfdd-4a75-bf86-1702f3675184
+
+	measure FMREV_Change = [FM Revenue] - [FMREV_LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 00 Flow Message
+		lineageTag: 684d1ac5-065a-49ba-b099-6ab392945504
+
+	measure FMREV_Change% = DIVIDE([FMREV_Change], [FMREV_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: d3345a3d-9daa-4eab-bc0d-8a8443651009
+
+	measure FMAOV_LY = CALCULATE([FM Avg. Order Value], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 00 Flow Message
+		lineageTag: a512fc59-94a8-44ed-b2ec-cb199e463630
+
+	measure FMAOV_Change = [FM Avg. Order Value] - [FMAOV_LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 00 Flow Message
+		lineageTag: 0d2d4e07-3a65-4e42-8ca2-b6cc373cd1da
+
+	measure FMAOV_Change% = DIVIDE([FMAOV_Change], [FMAOV_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: b3886dfa-3350-4282-91ea-8a7e38524527
+
+	measure FMUNSUB_LY = CALCULATE([FM Unsubscribed], DATEADD(dailydimdate[Date], -1, YEAR))
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 82e6d5e0-041a-48d0-a562-9a7a2f245576
+
+	measure FMUNSUB_Change = [FM Unsubscribed] - [FMUNSUB_LY]
+		formatString: #,0
+		displayFolder: 00 Flow Message
+		lineageTag: 648fba42-246f-441a-89a5-de1ad03dd35c
+
+	measure FMUNSUB_Change% = DIVIDE([FMUNSUB_Change], [FMUNSUB_LY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 00 Flow Message
+		lineageTag: 6cdec562-8580-4f96-bb80-ce3cba2cf999
+
+	column Column
+		formatString: 0
+		lineageTag: 7915564d-6b42-4c6e-9b44-6fa2c6bce465
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '1_New Measures' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 3b26d94416d141129bca9529a12dfd6a
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

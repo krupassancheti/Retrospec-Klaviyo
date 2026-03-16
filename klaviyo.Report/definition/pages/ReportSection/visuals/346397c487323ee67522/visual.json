@@ -1,0 +1,34 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "346397c487323ee67522",
+  "position": {
+    "x": 19.1915776531161,
+    "y": 47.38636363636364,
+    "z": 4000,
+    "height": 26.25,
+    "width": 71.25,
+    "tabOrder": 93000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Prev. Period"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "bfa43c7eabb3302744d6"
+}

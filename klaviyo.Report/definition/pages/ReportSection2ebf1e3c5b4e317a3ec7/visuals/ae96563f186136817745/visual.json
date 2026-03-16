@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "ae96563f186136817745",
+  "position": {
+    "x": 38,
+    "y": 944.70560745987427,
+    "z": 2000,
+    "height": 281.32138857782752,
+    "width": 610.414333706607,
+    "tabOrder": 1000
+  },
+  "visualGroup": {
+    "displayName": "Klaviyo Recipient Volume",
+    "groupMode": "ScaleMode",
+    "objects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

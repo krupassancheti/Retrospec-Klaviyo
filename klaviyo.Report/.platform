@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "klaviyo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "52187cae-55fa-41c2-8c3f-87e9c27557ee"
+  }
+}

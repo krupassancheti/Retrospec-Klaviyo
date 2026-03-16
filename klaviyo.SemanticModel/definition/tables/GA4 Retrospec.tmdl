@@ -1,0 +1,113 @@
+table 'GA4 Retrospec'
+	lineageTag: 25c27918-1310-4496-8cbf-eecc9f40e3f2
+
+	column date
+		dataType: dateTime
+		formatString: m/d/yy
+		lineageTag: 2e91dd2e-3396-4356-ba90-0f49d548fab0
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: 52f3f59f-b054-4104-a6b4-a7d4d1ea3866
+		summarizeBy: sum
+		sourceColumn: sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column totalRevenue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: b8893c7b-5ee8-4041-8acd-5dce6b4112bf
+		summarizeBy: sum
+		sourceColumn: totalRevenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column sessionMedium
+		dataType: string
+		lineageTag: 07d35a0f-3255-45ef-9d2b-b6a2ad4ebcd7
+		summarizeBy: none
+		sourceColumn: sessionMedium
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'GA4 Retrospec' = m
+		mode: import
+		source =
+				let
+				    Source =
+				        GoogleAnalytics.Accounts(
+				            [Implementation = "2.0"]
+				        ),
+				
+				    Account =
+				        Source{[Id = "accounts/109541297"]}[Data],
+				
+				    Property =
+				        Account{[Id = "properties/263461075"]}[Data],
+				
+				    Dataset =
+				        Property{[Id = "properties/263461075"]}[Data],
+				
+				    // Expand GA4 cube
+				    GAData =
+				        Cube.Transform(
+				            Dataset,
+				            {
+				                {
+				                    Cube.AddAndExpandDimensionColumn,
+				                    "date",
+				                    {"date"},
+				                    {"date"}
+				                },
+				                {
+				                    Cube.AddAndExpandDimensionColumn,
+				                    "sessionMedium",
+				                    {"sessionMedium"},
+				                    {"sessionMedium"}
+				                },
+				                {
+				                    Cube.AddMeasureColumn,
+				                    "sessions",
+				                    "sessions"
+				                },
+				                {
+				                    Cube.AddMeasureColumn,
+				                    "totalRevenue",
+				                    "totalRevenue"
+				                }
+				            }
+				        ),
+				
+				    // Convert GA date (YYYYMMDD) → date type
+				    ChangedType =
+				        Table.TransformColumnTypes(
+				            GAData,
+				            {{"date", type date}}
+				        ),
+				
+				    // Apply date filter AFTER expansion (GA4-safe)
+				    FilteredRows =
+				        Table.SelectRows(
+				            ChangedType,
+				            each [date] >= #"Start Date"
+				                and [date] <= #"End Date"
+				        )
+				in
+				    FilteredRows
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

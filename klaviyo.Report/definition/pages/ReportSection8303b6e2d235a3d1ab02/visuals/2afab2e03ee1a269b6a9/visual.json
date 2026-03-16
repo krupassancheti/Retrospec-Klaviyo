@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "2afab2e03ee1a269b6a9",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 2000,
+    "height": 60,
+    "width": 1280,
+    "tabOrder": 0
+  },
+  "visualGroup": {
+    "displayName": "TopBar",
+    "groupMode": "ScaleMode"
+  }
+}

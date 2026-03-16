@@ -1,0 +1,98 @@
+table Flow_New_Parameter
+	lineageTag: 8e42df57-1a4d-4aae-9292-91f84caf5d5b
+
+	column Flow_New_Parameter
+		lineageTag: 49e88711-aee6-437d-9976-ad6ba5c80ea6
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Flow_New_Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Flow_New_Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow_New_Parameter Fields'
+		isHidden
+		lineageTag: fa16148f-8ffd-4850-8ed4-ad3772878d23
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Flow_New_Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow_New_Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: eed818ec-6c06-49d3-80fc-9aabde5f58a9
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Flow_New_Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Unique Recipients", NAMEOF('All_Measures'[FlowUnqRecipients]), 0),
+				    ("LY_Unique Recipients", NAMEOF('1_New Measures'[FUR_LY]), 1),
+				    ("Unique Recipients Change", NAMEOF('1_New Measures'[FUR_Change]), 2),
+				    ("Unique Recipients Change %", NAMEOF('1_New Measures'[FUR_Change%]), 3),
+				    ("Recipients", NAMEOF('All_Measures'[FlowRecip]), 4),
+				    ("LY_Recipients", NAMEOF('1_New Measures'[FR_LY]), 5),
+				    ("Recipients Change", NAMEOF('1_New Measures'[FR_Change]), 6),
+				    ("Recipients Change %", NAMEOF('1_New Measures'[FR_Change%]), 7),
+				    ("FlowUnqOpens", NAMEOF('All_Measures'[FlowUnqOpens]), 8),
+				    ("LY_Opens", NAMEOF('1_New Measures'[FUO_LY]), 9),
+				    ("Opens Change", NAMEOF('1_New Measures'[FUO_Change]), 10),
+				    ("Opens Change %", NAMEOF('1_New Measures'[FUO_Change%]), 11),
+				    ("Open Rate", NAMEOF('All_Measures'[FlowOpenRate]), 12),
+				    ("LY_Open Rate", NAMEOF('1_New Measures'[FOR_LY]), 13),
+				    ("Open Rate Change", NAMEOF('1_New Measures'[FOR_Change]), 14),
+				    ("Open Rate Change % ", NAMEOF('1_New Measures'[FOR_Change% ]), 15),
+				    ("Clicks", NAMEOF('All_Measures'[FlowUnqClicks]), 16),
+				    ("LY_Clicks", NAMEOF('1_New Measures'[FUC_LY]), 17),
+				    ("Clicks Change", NAMEOF('1_New Measures'[FUC_Change]), 18),
+				    ("Clicks Change % ", NAMEOF('1_New Measures'[FUC_Change% ]), 19),
+				    ("Click Rate", NAMEOF('All_Measures'[FlowClickRate]), 20),
+				    ("LY_Click Rate", NAMEOF('1_New Measures'[FCR_LY]), 21),
+				    ("Click Rate Change", NAMEOF('1_New Measures'[FCR_Change]), 22),
+				    ("Click Rate Change %", NAMEOF('1_New Measures'[FCR_Change%]), 23),
+				    ("Revenue", NAMEOF('All_Measures'[FlowRevenue]), 24),
+				    ("LY_Revenue", NAMEOF('1_New Measures'[FREV_LY]), 25),
+				    ("Revenue Change", NAMEOF('1_New Measures'[FREV_Change]), 26),
+				    ("Revenue Change %", NAMEOF('1_New Measures'[FREV_Change%]), 27),
+				    ("Orders", NAMEOF('All_Measures'[FlowConversion]), 28),
+				    ("LY_Orders", NAMEOF('1_New Measures'[FCONV_LY]), 29),
+				    ("Orders Change", NAMEOF('1_New Measures'[FCONV_Change]), 30),
+				    ("Orders Change %", NAMEOF('1_New Measures'[FCONV_Change%]), 31),
+				    ("Conv. Rate", NAMEOF('All_Measures'[FlowCONVERSION RATE]), 32),
+				    ("LY_Conv. Rate", NAMEOF('1_New Measures'[FCRATE_LY]), 33),
+				    ("Conv. Rate Change", NAMEOF('1_New Measures'[FCRATE_Change]), 34),
+				    ("Conv. Rate Change % ", NAMEOF('1_New Measures'[FCRATE_Change% ]), 35),
+				    ("AOV", NAMEOF('All_Measures'[FlowAOV]), 36),
+				    ("LY_AOV", NAMEOF('1_New Measures'[FAOV_LY]), 37),
+				    ("AOV Change", NAMEOF('1_New Measures'[FAOV_Change]), 38),
+				    ("AOV Change % ", NAMEOF('1_New Measures'[FAOV_Change% ]), 39),
+				    ("Unique Unsubscribes", NAMEOF('All_Measures'[FlowUnqUnsubscribes]), 40),
+				    ("LY_Unique Unsubscribes", NAMEOF('1_New Measures'[FUUNSUB_LY]), 41),
+				    ("Unique Unsubscribes Change", NAMEOF('1_New Measures'[FUUNSUB_Change]), 42),
+				    ("Unique Unsubscribes Change %", NAMEOF('1_New Measures'[FUUNSUB_Change%]), 43),
+				    ("Unsubscribed", NAMEOF('All_Measures'[FlowUnsubscribed]), 44),
+				    ("LY_Unsubscribed", NAMEOF('1_New Measures'[FUNSUB_LY]), 45),
+				    ("Unsubscribed Change", NAMEOF('1_New Measures'[FUNSUB_Change]), 46),
+				    ("Unsubscribed Change % ", NAMEOF('1_New Measures'[FUNSUB_Change% ]), 47),
+				    ("Unsubscribe Rate", NAMEOF('All_Measures'[FlowUnsubscribe rate]), 48),
+				    ("LY_Unsubscribe Rate", NAMEOF('1_New Measures'[FURATE_LY]), 49),
+				    ("Unsubscribe Rate Change", NAMEOF('1_New Measures'[FURATE_Change]), 50),
+				    ("Unsubscribe Rate Change %", NAMEOF('1_New Measures'[FURATE_Change%]), 51)
+				}
+
+	annotation PBI_Id = f1619135ee064c18895b9a41c830699e
+

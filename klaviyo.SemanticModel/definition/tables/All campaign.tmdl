@@ -1,0 +1,90 @@
+table 'All campaign'
+	lineageTag: ae90f086-a138-4f87-81cc-9840c91da008
+
+	measure ACTotal_Recipients = SUM('All campaign'[total_recipients])
+		formatString: 0
+		lineageTag: b1076362-9f4b-4d4c-bfd4-52887a6e7d56
+
+	measure ACUnique_Recipients = SUM('All campaign'[unique_recipients])
+		formatString: 0
+		lineageTag: 7d384a06-00d0-43d6-abb7-ffb5f32a4e3e
+
+	column date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: d0c65455-b0b0-4c55-ba13-52b38b496bcc
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Campaign_name
+		dataType: string
+		lineageTag: 1247c378-c186-4867-a858-2058e645c1e4
+		summarizeBy: none
+		sourceColumn: Campaign_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a934bdf-eb44-49b9-8793-6282be490c63
+		summarizeBy: sum
+		sourceColumn: unique_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: d98143ae-3fa6-40be-b6c2-7a429ae3479f
+		summarizeBy: sum
+		sourceColumn: total_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date type'
+		dataType: string
+		lineageTag: 3c1cc228-8488-4e9a-9e74-4dea9718d856
+		summarizeBy: none
+		sourceColumn: Date type
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxis =
+			
+			SWITCH(
+			    TRUE(),
+			    'All campaign'[Date type] = "Day", FORMAT( 'All campaign'[date], "MM-DD-YYYY" ),
+			    'All campaign'[Date type] = "Week",FORMAT( RELATED ( DailyDimDate[Start of Week] ), "MM-DD-YYYY"),
+			    'All campaign'[Date type] = "Month", FORMAT( 'All campaign'[date], "MMM-YY" )
+			)
+		lineageTag: c9999c14-f643-4ac0-a0ed-2a4e5710f8b1
+		summarizeBy: none
+		sortByColumn: date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'All campaign' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1gmx5TpWxjtrV_Qn6D9_uWRxfBlfQGQQmf4A2zckcaIU/edit?gid=1304444880"),
+				    #"All campaign_Table" = Source{[name="All campaign",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"All campaign_Table", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type datetime}, {"Campaign_name", type text}, {"unique_recipients", Int64.Type}, {"total_recipients", Int64.Type}, {"Date type", type text}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"date", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

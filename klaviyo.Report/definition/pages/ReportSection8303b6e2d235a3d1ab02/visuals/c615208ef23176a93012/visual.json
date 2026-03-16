@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c615208ef23176a93012",
+  "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0,
+    "height": 401,
+    "width": 1180,
+    "tabOrder": 0
+  },
+  "visualGroup": {
+    "displayName": "flowmatirx",
+    "groupMode": "ScaleMode"
+  },
+  "parentGroupName": "2b55900315e060c20e50"
+}

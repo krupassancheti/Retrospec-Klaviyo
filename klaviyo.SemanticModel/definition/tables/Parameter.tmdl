@@ -1,0 +1,49 @@
+table Parameter
+	lineageTag: aaa16ba1-a7df-4b5f-9a65-b11baf041681
+
+	column Parameter
+		lineageTag: c29af260-5703-40d7-84a1-9b690d15d9c6
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 598caab7-29d0-4b7a-92a3-67ed29c84e46
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: b7e2971e-1d58-415f-9ebb-56ef2640d347
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Month", NAMEOF('DailyDimDate'[Month Name]), 0),
+				    ("Week", NAMEOF('DailyDimDate'[WeekNum]), 1),
+				    ("Day", NAMEOF('DailyDimDate'[Day Number]), 2)
+				}
+
+	annotation PBI_Id = 4a143da841d34d3b89f8250b7d25e5aa
+

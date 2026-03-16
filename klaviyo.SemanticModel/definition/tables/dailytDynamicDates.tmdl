@@ -1,0 +1,112 @@
+table dailytDynamicDates
+	lineageTag: fbbd5e28-42c6-4a35-95c6-b67e4d908e9e
+
+	column Date
+		formatString: yyyy-mm-dd
+		lineageTag: f588f6a6-bb58-4c68-ae46-3b973012d798
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Type
+		lineageTag: 9c62a676-4cee-4184-8c4c-254c89e97dfa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: eaf58881-a4de-48a5-8c98-46d0cce38506
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxis =
+			
+			SWITCH(
+			    TRUE(),
+			    dailytDynamicDates[Type] = "Day", FORMAT( dailytDynamicDates[Date], "DD-MM-YYYY" ),
+			    dailytDynamicDates[Type] = "Week",FORMAT( RELATED ( DailyDimDate[Start of Week] ), "DD-MM-YYYY"),
+			    dailytDynamicDates[Type] = "Month", FORMAT( dailytDynamicDates[Date], "MMM-YY" ),
+			    dailytDynamicDates[Type] = "Quarter", "Q" & FORMAT( dailytDynamicDates[Date], "Q-YY"),
+			    dailytDynamicDates[Type] = "Year", FORMAT( dailytDynamicDates[Date], "YYYY" ))
+		lineageTag: 31cc4ff7-21d9-45ec-a65d-79390b1fa6bc
+		summarizeBy: none
+		sortByColumn: xAxisOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxisOrder =
+			
+			SWITCH(
+			    TRUE(),
+			    dailytDynamicDates[Type] = "Day", FORMAT( dailytDynamicDates[Date], "General Number" ),
+			    dailytDynamicDates[Type] = "Week",FORMAT( RELATED ( DailyDimDate[Start of Week] ), "General Number" ),
+			    dailytDynamicDates[Type] = "Month", FORMAT( DATE(YEAR( dailytDynamicDates[Date] ), MONTH( dailytDynamicDates[Date] ), 1 ), "General Number"),
+			    dailytDynamicDates[Type] = "Quarter", YEAR( dailytDynamicDates[Date] ) & QUARTER( dailytDynamicDates[Date] ),
+			    dailytDynamicDates[Type] = "Year", FORMAT( YEAR( dailytDynamicDates[Date] ), "General Number")
+			)
+		lineageTag: 9e6ca243-04d3-441c-bdc3-6f4d1e706eb1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column uTYPE =
+			
+			SWITCH(
+			    TRUE(),
+			    dailytDynamicDates[Order] = 1, "D A Y",
+			    dailytDynamicDates[Order] = 2, "W E E K",
+			    dailytDynamicDates[Order] = 3, "M O N T H",
+			    dailytDynamicDates[Order] = 4, "Q U A R T E R",
+			    dailytDynamicDates[Order] = 5, "Y E A R"
+			)
+		lineageTag: b88388b4-681a-414e-b6c4-0a2fee500198
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dailytDynamicDates = calculated
+		mode: import
+		source =
+				
+				UNION(
+				    ADDCOLUMNS (
+				        CALENDAR ( MIN ( DailyDimDate[Date] ), MAX ( DailyDimDate[Date] ) ),
+				        "Type", "Day",
+				        "Order", 1
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( DailyDimDate[Date]), MAX ( DailyDimDate[Date] ) ),
+				        "Type", "Week",
+				        "Order", 2
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( DailyDimDate[Date] ), MAX ( DailyDimDate[Date] ) ),
+				        "Type", "Month",
+				        "Order", 3
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( DailyDimDate[Date] ), MAX ( DailyDimDate[Date] ) ),
+				        "Type", "Quarter",
+				        "Order", 4
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( DailyDimDate[Date] ), MAX ( DailyDimDate[Date] ) ),
+				        "Type", "Year",
+				        "Order", 5
+				    )
+				)
+
+	annotation PBI_Id = ebcf840f3b9b47b5a0b375a9e4d0a6bc
+

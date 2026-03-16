@@ -1,0 +1,255 @@
+table 'Segment Data'
+	lineageTag: a54823d9-8176-4035-bbac-b7aa74966f15
+
+	column Date
+		dataType: string
+		lineageTag: e271bb35-fdc2-4704-82a9-92055ab11726
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group Id'
+		dataType: string
+		lineageTag: d37ba11d-eb83-42f6-bef4-3177af5c9208
+		summarizeBy: none
+		sourceColumn: Group Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column List/Segment
+		dataType: string
+		lineageTag: 559a70c9-ee46-45fd-bd2f-b73bbee618a2
+		summarizeBy: none
+		sourceColumn: List/Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Recipients'
+		dataType: int64
+		formatString: 0
+		lineageTag: e3d510b7-3344-457c-9b3e-57f3d4aed51c
+		summarizeBy: sum
+		sourceColumn: Total Recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Open Rate'
+		dataType: double
+		lineageTag: e6b4a2ad-9996-43f1-8ce8-70d6c3413d9c
+		summarizeBy: sum
+		sourceColumn: Open Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Click Rate'
+		dataType: double
+		lineageTag: f77a6691-b4d8-4670-b314-aa4c94ae11d5
+		summarizeBy: sum
+		sourceColumn: Click Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unique Opens'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01149320-9db4-442f-b2a2-6f96e7531293
+		summarizeBy: sum
+		sourceColumn: Unique Opens
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Clicks'
+		dataType: int64
+		formatString: 0
+		lineageTag: a1127fdd-3e86-49e3-a02f-486e31a87bf8
+		summarizeBy: sum
+		sourceColumn: Unique Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 298557d1-b3fa-4f22-bdd1-16b5f49cc455
+		summarizeBy: sum
+		sourceColumn: Unique Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spam Complaints'
+		dataType: int64
+		formatString: 0
+		lineageTag: 64b168b7-9eeb-4e67-bcdd-e3d0d73927cf
+		summarizeBy: sum
+		sourceColumn: Spam Complaints
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bounces
+		dataType: int64
+		formatString: 0
+		lineageTag: d93593c9-1b4c-4482-bc8a-5ba04780b35a
+		summarizeBy: sum
+		sourceColumn: Bounces
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unsubscribe Rate'
+		dataType: double
+		lineageTag: 3e56a7fd-4725-4747-9cfd-58302be3fccb
+		summarizeBy: sum
+		sourceColumn: Unsubscribe Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Spam Complaints Rate'
+		dataType: double
+		lineageTag: 3b6030f9-5d8f-429a-9336-0270f060e883
+		summarizeBy: sum
+		sourceColumn: Spam Complaints Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Bounce Rate'
+		dataType: double
+		lineageTag: 1dbd5d03-cbdb-40b2-8ba4-c43edd1b19fc
+		summarizeBy: sum
+		sourceColumn: Bounce Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Placed Order Value'
+		dataType: double
+		lineageTag: 59f3d6b7-246b-45ba-993d-02c6cc123157
+		summarizeBy: sum
+		sourceColumn: Total Placed Order Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Placed Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: fe9cf78a-e80d-42d9-b116-5be14f29d3f0
+		summarizeBy: sum
+		sourceColumn: Total Placed Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Campaign Channel'
+		dataType: string
+		lineageTag: b97c74ef-da8e-4439-a125-0965f370d3d2
+		summarizeBy: none
+		sourceColumn: Campaign Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Year'
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: d4c8c242-a9ea-4250-ab4e-b89e41f09e49
+		summarizeBy: none
+		sourceColumn: Month Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Month = 'Segment Data'[Month Year]
+		formatString: mmmm yyyy
+		lineageTag: 6cffb87f-b636-45c3-bf3c-c5db1dbd172f
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 0c3d0a9c-9c26-446a-8842-03be3985699f
+			defaultHierarchy: LocalDateTable_f29e84a9-632a-462b-b617-60bc5ca8a155.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Year = YEAR('Segment Data'[Month Year])
+		formatString: 0
+		lineageTag: 6da5aea3-354f-4c90-a1de-982859d482d9
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Segment Data' = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("https://retrospecblob.blob.core.windows.net"),
+				    gold = Source{[Name="gold"]}[Data],
+				
+				    #"File Content" =
+				        gold{
+				            [
+				                #"Folder Path" = "https://retrospecblob.blob.core.windows.net/gold/",
+				                Name = "klaviyo_data/email_segment_report/segment_report_monthly.csv"
+				            ]
+				        }[Content],
+				
+				    #"Imported CSV" =
+				        Csv.Document(
+				            #"File Content",
+				            [
+				                Delimiter = ",",
+				                Columns = 18,
+				                Encoding = 65001,
+				                QuoteStyle = QuoteStyle.None
+				            ]
+				        ),
+				
+				    #"Promoted Headers" =
+				        Table.PromoteHeaders(
+				            #"Imported CSV",
+				            [PromoteAllScalars = true]
+				        ),
+				
+				    #"Changed Type" =
+				        Table.TransformColumnTypes(
+				            #"Promoted Headers",
+				            {
+				                {"Date", type text},
+				                {"Group Id", type text},
+				                {"List/Segment", type text},
+				                {"Total Recipients", Int64.Type},
+				                {"Open Rate", type number},
+				                {"Click Rate", type number},
+				                {"Unique Opens", Int64.Type},
+				                {"Unique Clicks", Int64.Type},
+				                {"Unique Unsubscribes", Int64.Type},
+				                {"Spam Complaints", Int64.Type},
+				                {"Bounces", Int64.Type},
+				                {"Unsubscribe Rate", type number},
+				                {"Spam Complaints Rate", type number},
+				                {"Bounce Rate", type number},
+				                {"Total Placed Order Value", type number},
+				                {"Total Placed Order", Int64.Type},
+				                {"Campaign Channel", type text},
+				                {"Month Year", type date}
+				            }
+				        )
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

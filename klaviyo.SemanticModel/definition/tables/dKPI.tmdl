@@ -1,0 +1,55 @@
+table dKPI
+	lineageTag: e133c79d-1998-4e65-81cd-49295018943b
+
+	column dKPI
+		lineageTag: ab79970f-b2da-45b3-a280-f76d51cf89e3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'dKPI Order'
+
+		relatedColumnDetails
+			groupByColumn: 'dKPI Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dKPI Fields'
+		isHidden
+		lineageTag: b06bb3c9-36dd-47ce-b0a6-0ba40feb484d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'dKPI Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dKPI Order'
+		isHidden
+		formatString: 0
+		lineageTag: f928ff51-1c9b-45c3-86cc-9e2042918a6a
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dKPI = calculated
+		mode: import
+		source =
+				{
+				    ("RECIPIENTS", NAMEOF('All_Measures'[dRECIPIENTS]), 0),
+				    ("UNIQUE OPENS", NAMEOF('All_Measures'[dUNIQUE OPENS]), 1),
+				    ("UNIQUE CLICKS", NAMEOF('All_Measures'[dUNIQUE CLICKS]), 2),
+				    ("CLICK TO RECIEVE RATE", NAMEOF('All_Measures'[dCLICK TO RECIEVE RATE]), 3),
+				    ("CONVERSIONS", NAMEOF('All_Measures'[dCONVERSIONS]), 4),
+				    ("CONVERSION RATE", NAMEOF('All_Measures'[dCONVERSION RATE]), 5),
+				    ("REVENUE", NAMEOF('All_Measures'[dREVENUE]), 6),
+				    ("UNSUBSCRIBE", NAMEOF('All_Measures'[dUNSUBSCRIBE]), 7),
+				    ("UNSUBSCRIBE RATE", NAMEOF('All_Measures'[dUNSUBSCRIBE RATE]), 8)
+				}
+
+	annotation PBI_Id = 24389da42d574bf79cffa9f1932ee7f9
+

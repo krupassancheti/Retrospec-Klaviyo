@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "0a3ab99fa5347aed601b",
+  "displayName": "Duplicate of Consumers campaigns and Flow",
+  "displayOption": "FitToWidth",
+  "height": 2165,
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filter7c02eae87638b00226ff",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "campaign"
+              }
+            },
+            "Property": "Campaign Name"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "c",
+              "Entity": "campaign",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Contains": {
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "c"
+                            }
+                          },
+                          "Property": "Campaign Name"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "'dealer'"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "ef46641b4ec0cb3e745d",
+      "target": "eeb046bc602788eb9d6a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ef46641b4ec0cb3e745d",
+      "target": "51b871774024d63ae0ea",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ef46641b4ec0cb3e745d",
+      "target": "2b35a1c0d94016ce0217",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ef46641b4ec0cb3e745d",
+      "target": "9fb37ce1c3606a931a0c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ef46641b4ec0cb3e745d",
+      "target": "900763600c657dc4e180",
+      "type": "NoFilter"
+    },
+    {
+      "source": "ef46641b4ec0cb3e745d",
+      "target": "7987e1f109b36537085c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9b5ad2b516e8a13b0e10",
+      "target": "7987e1f109b36537085c",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9b5ad2b516e8a13b0e10",
+      "target": "eeb046bc602788eb9d6a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9b5ad2b516e8a13b0e10",
+      "target": "51b871774024d63ae0ea",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9b5ad2b516e8a13b0e10",
+      "target": "2b35a1c0d94016ce0217",
+      "type": "NoFilter"
+    },
+    {
+      "source": "9b5ad2b516e8a13b0e10",
+      "target": "b0e80fd5c0998a409e2c",
+      "type": "NoFilter"
+    }
+  ]
+}

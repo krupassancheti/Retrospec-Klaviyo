@@ -1,0 +1,318 @@
+table OrderLine
+	lineageTag: fbf761ea-92b3-46c4-b339-55cae8deb559
+
+	column CREATED_AT
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c5d50b3c-1d62-4424-9c68-bb09bff4c8ad
+		summarizeBy: none
+		sourceColumn: CREATED_AT
+
+		variation Variation
+			isDefault
+			relationship: e6c4afe6-39dd-4c7c-b58a-609a2a0661cb
+			defaultHierarchy: LocalDateTable_7d8e3ad3-ffbe-49ab-856f-ab7567a507b9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FINANCIAL_STATUS
+		dataType: string
+		lineageTag: d405213c-73d4-4988-b3e4-ae1f90a19b35
+		summarizeBy: none
+		sourceColumn: FINANCIAL_STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_ID
+		dataType: string
+		lineageTag: 29e96a33-bce4-4670-ab9e-9d92503e3876
+		summarizeBy: none
+		sourceColumn: Order_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order_Line_ID
+		dataType: string
+		lineageTag: 1a7b1dd9-90bc-4d50-8828-76327505f264
+		summarizeBy: none
+		sourceColumn: Order_Line_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 3a7783d5-9541-4f82-8ef7-0165912eb3e8
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: d5579a7c-36cf-4195-b1ac-58c250a80f6f
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_id
+		dataType: string
+		lineageTag: 4516be20-2f97-4082-97cd-1b12deb38173
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 26c01747-1bde-4935-baeb-0e413131936b
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column sku
+		dataType: string
+		lineageTag: ca794060-4592-4580-994e-b171d2ec1372
+		summarizeBy: none
+		sourceColumn: sku
+
+		annotation SummarizationSetBy = Automatic
+
+	column variant_id
+		dataType: string
+		lineageTag: d70b8320-9ecb-4975-84c8-77759570ef3f
+		summarizeBy: none
+		sourceColumn: variant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDER_NAME
+		dataType: string
+		lineageTag: b18f5af1-99ab-44b7-a50b-874318a251e5
+		summarizeBy: none
+		sourceColumn: ORDER_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.address1'
+		dataType: string
+		lineageTag: 2abf8514-b737-4e02-8855-f88c425de92b
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.address1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.address2'
+		dataType: string
+		lineageTag: a254f19c-f9fa-4205-bf57-7944387862e1
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.address2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.city'
+		dataType: string
+		lineageTag: b9cace38-9348-4b93-b933-310ade95d4b9
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.city
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.company'
+		dataType: string
+		lineageTag: 1d2b68d4-e5b4-4514-9bbd-1be934f25071
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.company
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.country'
+		dataType: string
+		lineageTag: 97abdbcb-5ac5-4b13-881d-f05176431348
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.country_code'
+		dataType: string
+		lineageTag: 8433a5e0-f6e3-4f5c-b6ba-762cf170ede3
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.first_name'
+		dataType: string
+		lineageTag: da4520f0-ae45-49fb-bd18-adac1afff746
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.last_name'
+		dataType: string
+		lineageTag: 7c57aeed-3755-4710-a232-917b16066ba6
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.latitude'
+		dataType: string
+		lineageTag: 9a3303ab-61a0-44bd-811c-1981d4bfe135
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.longitude'
+		dataType: string
+		lineageTag: 47954d0e-ea2b-41e3-9c4c-2569b7ce4478
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.name'
+		dataType: string
+		lineageTag: 9727500a-294b-4b37-b54a-c98a4a28aef0
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.phone'
+		dataType: string
+		lineageTag: 53313aaf-2c88-4f3a-8e54-73effdecc07c
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.province'
+		dataType: string
+		lineageTag: 6f63d546-65e5-496e-9513-c353556676f8
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.province
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.province_code'
+		dataType: string
+		lineageTag: b2a28dd2-ea5b-44d6-b11e-aa9bea474086
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.province_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SHIPPING_ADDRESS.zip'
+		dataType: string
+		lineageTag: c3b572f2-88e3-466e-904e-d92f6c86b9f3
+		summarizeBy: none
+		sourceColumn: SHIPPING_ADDRESS.zip
+
+		annotation SummarizationSetBy = Automatic
+
+	column SOURCE_NAME
+		dataType: string
+		lineageTag: 2889d3d6-7479-42e9-92a9-9ba6acd17b8b
+		summarizeBy: none
+		sourceColumn: SOURCE_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUBTOTAL_PRICE
+		dataType: double
+		lineageTag: f0bc995b-a5cd-479d-942a-d8c32002a147
+		summarizeBy: sum
+		sourceColumn: SUBTOTAL_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_DISCOUNTS
+		dataType: double
+		lineageTag: a18c859d-c4e4-4e8c-9df3-e8b8eb308a77
+		summarizeBy: sum
+		sourceColumn: TOTAL_DISCOUNTS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_LINE_ITEMS_PRICE
+		dataType: double
+		lineageTag: 5e03fec0-86f2-42d8-9ec0-1085497d8a07
+		summarizeBy: sum
+		sourceColumn: TOTAL_LINE_ITEMS_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_PRICE
+		dataType: double
+		lineageTag: cac03c99-39af-48fb-810e-ed47c390e2e2
+		summarizeBy: sum
+		sourceColumn: TOTAL_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SHIPPING_PRICE
+		dataType: double
+		lineageTag: f2e75859-e5e4-4875-8e45-21eb0f106b0c
+		summarizeBy: sum
+		sourceColumn: SHIPPING_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Revenue' = OrderLine[price]*OrderLine[quantity]
+		lineageTag: 1fe06d19-1c70-49ce-ad8a-20bb67e0f7d1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition OrderLine = m
+		mode: import
+		queryGroup: 'Transform File from gold\Helper Queries'
+		source =
+				let
+				    Source = Snowflake.Databases("pm42754.west-us-2.azure.snowflakecomputing.com", "COMPUTE_WH", null),
+				    POWERBI_Database = Source{[Name="POWERBI",Kind="Database"]}[Data],
+				    SHOPIFY__Schema = POWERBI_Database{[Name="SHOPIFY_",Kind="Schema"]}[Data],
+				    Table = SHOPIFY__Schema{[Name="ORDERS",Kind="Table"]}[Data],
+				    #"Removed Other Columns1" = Table.SelectColumns(Table,{"CREATED_AT", "FINANCIAL_STATUS", "ID", "LINE_ITEMS", "NAME", "SHIPPING_ADDRESS", "SOURCE_NAME", "SUBTOTAL_PRICE", "TOTAL_DISCOUNTS", "TOTAL_LINE_ITEMS_PRICE", "TOTAL_PRICE", "TOTAL_SHIPPING_PRICE_SET"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns1",{{"NAME", "ORDER_NAME"}}),
+				    #"Parsed JSON" = Table.TransformColumns(#"Renamed Columns1",{{"TOTAL_SHIPPING_PRICE_SET", Json.Document}}),
+				    #"Expanded TOTAL_SHIPPING_PRICE_SET" = Table.ExpandRecordColumn(#"Parsed JSON", "TOTAL_SHIPPING_PRICE_SET", {"shop_money"}, {"TOTAL_SHIPPING_PRICE_SET.shop_money"}),
+				    #"Expanded TOTAL_SHIPPING_PRICE_SET.shop_money" = Table.ExpandRecordColumn(#"Expanded TOTAL_SHIPPING_PRICE_SET", "TOTAL_SHIPPING_PRICE_SET.shop_money", {"amount"}, {"TOTAL_SHIPPING_PRICE_SET.shop_money.amount"}),
+				    #"Parsed JSON1" = Table.TransformColumns(#"Expanded TOTAL_SHIPPING_PRICE_SET.shop_money",{{"LINE_ITEMS", Json.Document}}),
+				    #"Expanded LINE_ITEMS" = Table.ExpandListColumn(#"Parsed JSON1", "LINE_ITEMS"),
+				    #"Expanded LINE_ITEMS1" = Table.ExpandRecordColumn(#"Expanded LINE_ITEMS", "LINE_ITEMS", {"id", "name", "price", "product_id", "quantity", "sku", "variant_id"}, {"id.1", "name", "price", "product_id", "quantity", "sku", "variant_id"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded LINE_ITEMS1",{{"id.1", type text}, {"product_id", type text}, {"variant_id", type text}, {"ID", type text}, {"TOTAL_SHIPPING_PRICE_SET.shop_money.amount", type number}, {"price", type number}, {"quantity", Int64.Type}, {"sku", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"ID", "Order_ID"}, {"id.1", "Order_Line_ID"}, {"TOTAL_SHIPPING_PRICE_SET.shop_money.amount", "SHIPPING_PRICE"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"CREATED_AT", type date}}),
+				    #"Parsed JSON2" = Table.TransformColumns(#"Changed Type1",{{"SHIPPING_ADDRESS", Json.Document}}),
+				    #"Expanded SHIPPING_ADDRESS" = Table.ExpandRecordColumn(#"Parsed JSON2", "SHIPPING_ADDRESS", {"address1", "address2", "city", "company", "country", "country_code", "first_name", "last_name", "latitude", "longitude", "name", "phone", "province", "province_code", "zip"}, {"SHIPPING_ADDRESS.address1", "SHIPPING_ADDRESS.address2", "SHIPPING_ADDRESS.city", "SHIPPING_ADDRESS.company", "SHIPPING_ADDRESS.country", "SHIPPING_ADDRESS.country_code", "SHIPPING_ADDRESS.first_name", "SHIPPING_ADDRESS.last_name", "SHIPPING_ADDRESS.latitude", "SHIPPING_ADDRESS.longitude", "SHIPPING_ADDRESS.name", "SHIPPING_ADDRESS.phone", "SHIPPING_ADDRESS.province", "SHIPPING_ADDRESS.province_code", "SHIPPING_ADDRESS.zip"}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Expanded SHIPPING_ADDRESS", {"SHIPPING_ADDRESS.zip"})
+				in
+				    #"Removed Errors"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

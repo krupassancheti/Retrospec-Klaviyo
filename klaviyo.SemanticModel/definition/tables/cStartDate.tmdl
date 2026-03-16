@@ -1,0 +1,26 @@
+table cStartDate
+	lineageTag: c10a3258-7780-4860-ae8a-1546506428e4
+
+	column cStartDate
+		dataType: double
+		lineageTag: ed8981e0-6f10-4656-ac37-8da11dbbde2f
+		summarizeBy: sum
+		sourceColumn: cStartDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition cStartDate = m
+		mode: import
+		source =
+				let
+				    Source = Number.From(List.Min(#"All campaign"[date])),
+				    #"Rounded Off" = Number.Round(Source, 0)
+				in
+				    #"Rounded Off"
+
+	annotation PBI_ResultType = Number
+
+	annotation PBI_NavigationStepName = Navigation
+

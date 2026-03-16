@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "56ecdec2946d22381949",
+  "position": {
+    "x": 650,
+    "y": 809,
+    "z": 1000,
+    "height": 340,
+    "width": 585,
+    "tabOrder": 9000
+  },
+  "visualGroup": {
+    "displayName": "Rev trend OT",
+    "groupMode": "ScaleMode"
+  }
+}

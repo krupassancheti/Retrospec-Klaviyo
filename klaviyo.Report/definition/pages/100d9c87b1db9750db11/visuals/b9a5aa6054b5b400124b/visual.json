@@ -1,0 +1,256 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "b9a5aa6054b5b400124b",
+  "position": {
+    "x": 9.54366586123576,
+    "y": 0,
+    "z": 0,
+    "height": 586.93545046599922,
+    "width": 967.0914739385571,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dailytDynamicDates"
+                    }
+                  },
+                  "Property": "xAxis"
+                }
+              },
+              "queryRef": "dailytDynamicDates.xAxis",
+              "nativeQueryRef": "xAxis",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowUnqRecipients"
+                }
+              },
+              "queryRef": "All_Measures.FlowUnqRecipients",
+              "nativeQueryRef": "UNIQUE RECIPIENTS",
+              "displayName": "UNIQUE RECIPIENTS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowRecip"
+                }
+              },
+              "queryRef": "All_Measures.FlowRecip",
+              "nativeQueryRef": "RECIPIENTS",
+              "displayName": "RECIPIENTS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowNo of Flows"
+                }
+              },
+              "queryRef": "All_Measures.FlowNo of Flows",
+              "nativeQueryRef": "NO OF FLOWS",
+              "displayName": "NO OF FLOWS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowUnqOpens"
+                }
+              },
+              "queryRef": "All_Measures.FlowUnqOpens",
+              "nativeQueryRef": "UNIQUE OPENS",
+              "displayName": "UNIQUE OPENS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowUnqClicks"
+                }
+              },
+              "queryRef": "All_Measures.FlowUnqClicks",
+              "nativeQueryRef": "UNIQUE CLICKS",
+              "displayName": "UNIQUE CLICKS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowCLICK TO RECIEVE RATE"
+                }
+              },
+              "queryRef": "All_Measures.FlowCLICK TO RECIEVE RATE",
+              "nativeQueryRef": "CLICK TO RECIEVE RATE",
+              "displayName": "CLICK TO RECIEVE RATE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowConversion"
+                }
+              },
+              "queryRef": "All_Measures.FlowConversion",
+              "nativeQueryRef": "CONVERSIONS",
+              "displayName": "CONVERSIONS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowCONVERSION RATE"
+                }
+              },
+              "queryRef": "All_Measures.FlowCONVERSION RATE",
+              "nativeQueryRef": "CONVERSION RATE",
+              "displayName": "CONVERSION RATE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowRevenue"
+                }
+              },
+              "queryRef": "All_Measures.FlowRevenue",
+              "nativeQueryRef": "REVENUE",
+              "displayName": "REVENUE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowUnqUnsubscribes"
+                }
+              },
+              "queryRef": "All_Measures.FlowUnqUnsubscribes",
+              "nativeQueryRef": "UNIQUE UNSUBSCRIBES",
+              "displayName": "UNIQUE UNSUBSCRIBES"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowUnsubscribed"
+                }
+              },
+              "queryRef": "All_Measures.FlowUnsubscribed",
+              "nativeQueryRef": "UNSUBSCRIBE",
+              "displayName": "UNSUBSCRIBE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "FlowUnsubscribe rate"
+                }
+              },
+              "queryRef": "All_Measures.FlowUnsubscribe rate",
+              "nativeQueryRef": "UNSUBSCRIBE RATE",
+              "displayName": "UNSUBSCRIBE RATE"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fKPI"
+                    }
+                  },
+                  "Property": "fKPI"
+                }
+              },
+              "index": 0,
+              "length": 12
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dailytDynamicDates"
+                  }
+                },
+                "Property": "xAxis"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

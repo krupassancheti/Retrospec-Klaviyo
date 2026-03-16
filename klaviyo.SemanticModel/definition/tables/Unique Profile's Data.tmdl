@@ -1,0 +1,236 @@
+table 'Unique Profile''s Data'
+	lineageTag: f82454f5-3b0c-4573-b25d-493a12e2a425
+
+	column '2024 Campaigns '
+		dataType: string
+		lineageTag: 745b28d5-2698-4a6f-bbde-ee71bed63e30
+		summarizeBy: none
+		sourceColumn: "2024 Campaigns "
+		sortByColumn: 'Start of Week'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Number of Mailings'
+		dataType: int64
+		formatString: 0
+		lineageTag: 551d2fea-945c-4b44-b223-ce270d49bda2
+		summarizeBy: sum
+		sourceColumn: Number of Mailings
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Profiles'
+		dataType: int64
+		formatString: 0
+		lineageTag: 177eb30f-ca05-4dbf-95fd-6076fd062e43
+		summarizeBy: sum
+		sourceColumn: Unique Profiles
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Delivered'
+		dataType: int64
+		formatString: 0
+		lineageTag: c75ea17b-cd57-49fc-af0d-41a204ef2031
+		summarizeBy: sum
+		sourceColumn: Total Delivered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ave Recpient/Mailing'
+		dataType: double
+		lineageTag: 09fe97c9-ffe0-4048-97bf-97e339fc0b41
+		summarizeBy: sum
+		sourceColumn: Ave Recpient/Mailing
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unsubscribes
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b50edee-1c47-4c8e-aee9-51f4c4bb9b86
+		summarizeBy: sum
+		sourceColumn: Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unsubscribe Rate'
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6990a121-0aa9-40f5-8b48-8564a7dea907
+		summarizeBy: sum
+		sourceColumn: Unsubscribe Rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Conversion Rate'
+		dataType: double
+		formatString: 0.0000%;-0.0000%;0.0000%
+		lineageTag: 47376f10-76da-4228-b2ba-fe9d16d75292
+		summarizeBy: sum
+		sourceColumn: Conversion Rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Revenue '
+		dataType: int64
+		formatString: 0
+		lineageTag: 67616af0-1553-4960-8c6d-feb7d81f9423
+		summarizeBy: sum
+		sourceColumn: "Revenue "
+
+		annotation SummarizationSetBy = Automatic
+
+	column Notes
+		dataType: string
+		lineageTag: 3db33569-c9a7-4d72-8cc7-0846bd1148dd
+		summarizeBy: none
+		sourceColumn: Notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conversion = 'Unique Profile''s Data'[Total Delivered] * 'Unique Profile''s Data'[Conversion Rate]
+		lineageTag: ada20a6b-10b0-4249-87a3-48caf9bd4749
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'End of Week'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: fe2de51b-04a2-424e-9bb6-c87405c3e293
+		summarizeBy: none
+		sourceColumn: End of Week
+
+		variation Variation
+			isDefault
+			relationship: f38eeda9-3312-4b45-bbde-8f1aae202c00
+			defaultHierarchy: LocalDateTable_2d6be123-b318-4d0a-98f7-5a953de1131c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Start of Week'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 54465bb4-60a4-4621-9bcc-179257d30066
+		summarizeBy: none
+		sourceColumn: Start of Week
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Column1
+		dataType: string
+		lineageTag: f8259e33-8208-404c-a004-ef29194e0097
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End of Week_1'
+		dataType: string
+		lineageTag: 0314c4ad-6de8-4241-8477-7934ed1735b3
+		summarizeBy: none
+		sourceColumn: End of Week_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: f2686587-0c39-44ea-84fe-4d0119eef66f
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: string
+		lineageTag: 165bca8c-d517-439f-9515-28fef9fa1469
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: string
+		lineageTag: 8f9d73de-e127-4b83-9703-f847fdc51bcc
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Unique Profile''s Data' = m
+		mode: import
+		source =
+				let
+				    // Load Google Sheet
+				    Source =
+				        GoogleSheets.Contents(
+				            "https://docs.google.com/spreadsheets/d/1gmx5TpWxjtrV_Qn6D9_uWRxfBlfQGQQmf4A2zckcaIU"
+				        ),
+				
+				    SheetTable =
+				        Source{[name="Unique Profile's Data", ItemKind="Table"]}[Data],
+				
+				    // Remove blank rows
+				    NonBlankRows =
+				        Table.SelectRows(
+				            SheetTable,
+				            each
+				                List.NonNullCount(
+				                    List.Transform(
+				                        Record.FieldValues(_),
+				                        each if _ = "" then null else _
+				                    )
+				                ) > 0
+				        ),
+				
+				    // Promote headers
+				    PromotedHeaders =
+				        Table.PromoteHeaders(
+				            NonBlankRows,
+				            [PromoteAllScalars = true]
+				        ),
+				
+				    // Data types
+				    ChangedType =
+				        Table.TransformColumnTypes(
+				            PromotedHeaders,
+				            {
+				                {"2024 Campaigns ", type text},
+				                {"Number of Mailings", Int64.Type},
+				                {"Unique Profiles", Int64.Type},
+				                {"Total Delivered", Int64.Type},
+				                {"Ave Recpient/Mailing", type number},
+				                {"Unsubscribes", Int64.Type},
+				                {"Unsubscribe Rate", Percentage.Type},
+				                {"Conversion Rate", Percentage.Type},
+				                {"Revenue ", Int64.Type},
+				                {"Notes", type text},
+				                {"End of Week", type date},
+				                {"Start of Week", type date}
+				            }
+				        ),
+				    #"Removed Columns" = Table.RemoveColumns(ChangedType,{"Start of Week"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Columns", "Start of Week", each Date.AddDays([End of Week], -6)),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Start of Week", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

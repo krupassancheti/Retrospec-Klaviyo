@@ -1,0 +1,241 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "e67876a6eebc8b9944b1",
+  "position": {
+    "x": 9.54366586123576,
+    "y": 0,
+    "z": 0,
+    "height": 596.479116327235,
+    "width": 715.774939592682,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "campaigntDynamicDates"
+                    }
+                  },
+                  "Property": "xAxis"
+                }
+              },
+              "queryRef": "campaigntDynamicDates.xAxis",
+              "nativeQueryRef": "xAxis",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "CampaignUnqRecipients"
+                }
+              },
+              "queryRef": "All_Measures.CampaignUnqRecipients",
+              "nativeQueryRef": "UNIQUE RECIPIENTS",
+              "displayName": "UNIQUE RECIPIENTS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cRECIPIENTS"
+                }
+              },
+              "queryRef": "All_Measures.cRECIPIENTS",
+              "nativeQueryRef": "RECIPIENTS",
+              "displayName": "RECIPIENTS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "No of Campaigns"
+                }
+              },
+              "queryRef": "All_Measures.No of Campaigns",
+              "nativeQueryRef": "NO OF CAMPAIGNS",
+              "displayName": "NO OF CAMPAIGNS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cUNIQUE OPENS"
+                }
+              },
+              "queryRef": "All_Measures.cUNIQUE OPENS",
+              "nativeQueryRef": "UNIQUE OPENS",
+              "displayName": "UNIQUE OPENS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cUNIQUE CLICKS"
+                }
+              },
+              "queryRef": "All_Measures.cUNIQUE CLICKS",
+              "nativeQueryRef": "UNIQUE CLICKS",
+              "displayName": "UNIQUE CLICKS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cCLICK TO RECIEVE RATE"
+                }
+              },
+              "queryRef": "All_Measures.cCLICK TO RECIEVE RATE",
+              "nativeQueryRef": "CLICK TO RECIEVE RATE",
+              "displayName": "CLICK TO RECIEVE RATE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cCONVERSIONS"
+                }
+              },
+              "queryRef": "All_Measures.cCONVERSIONS",
+              "nativeQueryRef": "CONVERSIONS",
+              "displayName": "CONVERSIONS"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cCONVERSION RATE"
+                }
+              },
+              "queryRef": "All_Measures.cCONVERSION RATE",
+              "nativeQueryRef": "CONVERSION RATE",
+              "displayName": "CONVERSION RATE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cREVENUE"
+                }
+              },
+              "queryRef": "All_Measures.cREVENUE",
+              "nativeQueryRef": "REVENUE",
+              "displayName": "REVENUE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "cUNSUBSCRIBE"
+                }
+              },
+              "queryRef": "All_Measures.cUNSUBSCRIBE",
+              "nativeQueryRef": "UNSUBSCRIBE",
+              "displayName": "UNSUBSCRIBE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All_Measures"
+                    }
+                  },
+                  "Property": "CampaignUnsubscribeRate"
+                }
+              },
+              "queryRef": "All_Measures.CampaignUnsubscribeRate",
+              "nativeQueryRef": "UNSUBSCRIBE RATE",
+              "displayName": "UNSUBSCRIBE RATE"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "cKPI"
+                    }
+                  },
+                  "Property": "cKPI"
+                }
+              },
+              "index": 0,
+              "length": 11
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "campaigntDynamicDates"
+                  }
+                },
+                "Property": "xAxis"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

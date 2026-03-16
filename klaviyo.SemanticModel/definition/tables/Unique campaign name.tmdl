@@ -1,0 +1,17 @@
+table 'Unique campaign name'
+	lineageTag: f2907856-5c85-4258-bcad-c49471e16bfc
+
+	column Campaign_name
+		lineageTag: 4def75f2-2cbf-4b65-98be-670aa606b70f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: campaign unique recipients[Campaign_name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Unique campaign name' = calculated
+		mode: import
+		source = SUMMARIZE('campaign unique recipients','campaign unique recipients'[Campaign_name])
+
+	annotation PBI_Id = bba9979aac3c49b2965cac97bee73cf8
+

@@ -1,0 +1,17 @@
+table 'Unique flow name'
+	lineageTag: 3cf7c559-f1a9-4012-a077-58381851f12c
+
+	column Flow_name
+		lineageTag: fa7ee7dd-332d-47a2-97e6-d28b372885e1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: flow unique recipients[Flow_name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Unique flow name' = calculated
+		mode: import
+		source = SUMMARIZE('flow unique recipients','flow unique recipients'[Flow_name])
+
+	annotation PBI_Id = e41a738ab2d84e0aa1bd07fa15fee0b1
+

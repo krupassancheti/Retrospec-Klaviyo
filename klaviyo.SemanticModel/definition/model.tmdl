@@ -1,0 +1,106 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		fastCombine
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Transform File from gold'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Transform File from gold\Helper Queries'
+
+	annotation PBI_QueryGroupOrder = 0
+
+/// Errors in queries that were loaded on 2/23/2024 6:01:56 PM.
+queryGroup 'Query Errors - 2/23/2024 6:01:56 PM'
+
+	annotation PBI_QueryGroupOrder = 10
+
+queryGroup 'Transform File from Segment data weekly'
+
+	annotation PBI_QueryGroupOrder = 7
+
+/// Errors in queries that were loaded on 1/23/2026 4:05:05 PM.
+queryGroup 'Query Errors - 1/23/2026 4:05:05 PM'
+
+	annotation PBI_QueryGroupOrder = 4
+
+annotation PBI_QueryOrder = ["daily","campaign","flow","All_Measures","DailyDimDate","dStartDate","dEndDate","cStartDate","cEndDate","CampaignDimDate","GA4 Retrospec","Start Date","End Date","OrderLine","Orders","Tranx_Status","list_last_7d","list_purchasers","list_non_purchasers","form","flow message","SMS Campaigns","Segment Data","Segment data weekly","campaign unique recipients","flow unique recipients","All campaign","All Data","All flow","Unique Profile's Data","Klaviyo"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit","DevMode"]
+
+annotation __PBIService_Versioning_SaveVersion = e61b170b-e9f4-4e2f-9561-de8e551ec389
+
+annotation __TEdtr = 1
+
+annotation __BNorm = 1
+
+ref table daily
+ref table DateTableTemplate_efe8863a-785b-4c37-a8e8-d878a607a828
+ref table campaign
+ref table flow
+ref table All_Measures
+ref table LocalDateTable_0e398bbc-c9d2-4b96-ba95-a1a32389d869
+ref table dKPI
+ref table dailytDynamicDates
+ref table DailyDimDate
+ref table cKPI
+ref table cStartDate
+ref table cEndDate
+ref table CampaignDimDate
+ref table LocalDateTable_d5eaff61-33bb-4b9f-82ae-d1c090d65e94
+ref table LocalDateTable_1e173676-79fe-4358-adbb-6da419d93f13
+ref table campaigntDynamicDates
+ref table fKPI
+ref table LocalDateTable_1b73902a-de92-4f3e-8626-894fbf363e33
+ref table 'GA4 Retrospec'
+ref table LocalDateTable_81161584-55b4-424e-92d8-f2044153a6f3
+ref table OrderLine
+ref table Orders
+ref table LocalDateTable_3edc6231-dd06-4188-a0b3-8d585b98452b
+ref table LocalDateTable_7d8e3ad3-ffbe-49ab-856f-ab7567a507b9
+ref table Tranx_Status
+ref table LocalDateTable_fbfd8a88-4840-46c7-ae36-e58705d1faaa
+ref table 'CCNF KPI'
+ref table list_last_7d
+ref table list_purchasers
+ref table list_non_purchasers
+ref table Parameter
+ref table Parameter2
+ref table form
+ref table 'flow message'
+ref table 'SMS Campaigns'
+ref table 'cSMS KPI'
+ref table 'Segment Data'
+ref table LocalDateTable_f29e84a9-632a-462b-b617-60bc5ca8a155
+ref table 'cSG KPI'
+ref table 'Segment data weekly'
+ref table 'SGW KPI'
+ref table 'campaign unique recipients'
+ref table 'flow unique recipients'
+ref table 'Unique campaign name'
+ref table 'Unique flow name'
+ref table 'All campaign'
+ref table 'All Data'
+ref table 'All flow'
+ref table 'Unique Profile''s Data'
+ref table LocalDateTable_2d6be123-b318-4d0a-98f7-5a953de1131c
+ref table 'cUP KPI'
+ref table '1_New Measures'
+ref table Flow_New_Parameter
+ref table 'Flow Message Parameter'
+ref table Source
+ref table 'CCNF KPI CY/LY'
+ref table 'Periods change'
+ref table LocalDateTable_f2d6b5c6-bb10-4514-9999-226153e4e373
+ref table Klaviyo
+ref table LocalDateTable_3af523a0-13cd-4496-a74d-0837c329dc80
+
+ref cultureInfo en-US
+

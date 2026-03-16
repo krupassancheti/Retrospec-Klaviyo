@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "klaviyo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2aea94e1-c9ce-4390-8e1b-db0faa86a835"
+  }
+}

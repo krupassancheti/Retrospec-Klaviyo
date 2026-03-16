@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "797fd6dcdbc176a7587a",
+  "position": {
+    "x": 50,
+    "y": 210.92859614210738,
+    "z": 12000,
+    "height": 372.91338582677167,
+    "width": 580,
+    "tabOrder": 12000
+  },
+  "visualGroup": {
+    "displayName": "KPI trend OT",
+    "groupMode": "ScaleMode"
+  }
+}

@@ -1,0 +1,210 @@
+relationship 5c5ef34c-3c57-47a6-8675-c6e2cea46625
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DailyDimDate.'Start of Week'
+	toColumn: LocalDateTable_0e398bbc-c9d2-4b96-ba95-a1a32389d869.Date
+
+relationship bf08c89d-a47f-4038-a12e-75dbbcf4818f
+	crossFilteringBehavior: bothDirections
+	fromColumn: dailytDynamicDates.Date
+	toColumn: DailyDimDate.Date
+
+relationship b974b2c8-3b56-4253-91f5-2a240103cea5
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: daily.Date
+	toColumn: DailyDimDate.Date
+
+relationship fcc0b134-0f0b-49e4-af65-12bec1729b56
+	fromColumn: flow.DateFlow
+	toColumn: DailyDimDate.Date
+
+relationship 080162d7-2c30-4ebb-8ff8-85e5a7ba9e16
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CampaignDimDate.'Send Date'
+	toColumn: LocalDateTable_d5eaff61-33bb-4b9f-82ae-d1c090d65e94.Date
+
+relationship c87a2e32-f597-4d2e-ae9a-967b9d7b7a63
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CampaignDimDate.'Start of Week'
+	toColumn: LocalDateTable_1e173676-79fe-4358-adbb-6da419d93f13.Date
+
+relationship da7019f2-2518-4954-bdd6-21d17a7d6b9f
+	isActive: false
+	fromColumn: campaign.'Send Date'
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship fe4e26ed-6fe6-42e4-8872-49cf2bd694d7
+	crossFilteringBehavior: bothDirections
+	fromColumn: campaigntDynamicDates.Date
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship 351222f5-8c25-4900-a770-754014f901bf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DailyDimDate.'End of week'
+	toColumn: LocalDateTable_1b73902a-de92-4f3e-8626-894fbf363e33.Date
+
+relationship e4d82550-6ea6-4d22-8d4e-5cee607637d6
+	fromColumn: 'GA4 Retrospec'.date
+	toColumn: DailyDimDate.Date
+
+relationship e1485eb5-3758-4b14-9609-86119363f3cc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CampaignDimDate.'End of week'
+	toColumn: LocalDateTable_81161584-55b4-424e-92d8-f2044153a6f3.Date
+
+relationship 0019c5b3-0e14-476f-860e-e326101f0a0b
+	isActive: false
+	fromColumn: flow.DateFlow
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship d70a7f45-9d5f-445e-89f6-ca5db54fd2d3
+	fromColumn: campaign.'Send Date'
+	toColumn: DailyDimDate.Date
+
+relationship 434240f8-0b68-4277-8b47-b5fabf553679
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Orders.CREATED_AT
+	toColumn: LocalDateTable_3edc6231-dd06-4188-a0b3-8d585b98452b.Date
+
+relationship 628a29a5-7670-427d-8835-dbe90a4034ad
+	fromColumn: OrderLine.Order_ID
+	toColumn: Orders.ID
+
+relationship e6c4afe6-39dd-4c7c-b58a-609a2a0661cb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: OrderLine.CREATED_AT
+	toColumn: LocalDateTable_7d8e3ad3-ffbe-49ab-856f-ab7567a507b9.Date
+
+relationship 4c6f4556-e3f5-4c76-9157-ff0cfd9714f7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Tranx_Status.Order_Date
+	toColumn: LocalDateTable_fbfd8a88-4840-46c7-ae36-e58705d1faaa.Date
+
+relationship 7befa6f0-709f-4a59-b431-6a88949d941a
+	fromColumn: Orders.Order_Date
+	toColumn: DailyDimDate.Date
+
+relationship 4e725a4a-d3c0-4dd7-9513-49ac24a8a7d3
+	fromColumn: list_last_7d.'Date Added'
+	toColumn: DailyDimDate.Date
+
+relationship 3fe9c65f-efff-448b-bf2b-c775d6292226
+	fromColumn: list_non_purchasers.'Date Added'
+	toColumn: DailyDimDate.Date
+
+relationship 4550bd38-fa7d-4f0c-8f10-4e486db57c45
+	fromColumn: list_purchasers.'Date Added'
+	toColumn: DailyDimDate.Date
+
+relationship 3566f314-ec1b-437e-b06a-fe6859ebc72e
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DailyDimDate.Date
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship 9c5aa5f8-6ffa-97a0-1513-b5c6c59f25d9
+	fromColumn: 'flow message'.Day
+	toColumn: DailyDimDate.Date
+
+relationship c7c4b22e-2997-3084-234f-72f0a8b203fa
+	fromColumn: 'SMS Campaigns'.'Send Date'
+	toColumn: DailyDimDate.Date
+
+relationship 576d8d61-b91b-7240-e248-bfea86e5a591
+	isActive: false
+	fromColumn: 'SMS Campaigns'.'Send Date'
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship a6bdc0fa-3aa4-6f69-58b5-228259e0d33e
+	isActive: false
+	fromColumn: 'Segment Data'.'Month Year'
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship 80f5c1b1-a3d4-823c-d5a0-486d869e78d4
+	fromColumn: 'Segment Data'.'Month Year'
+	toColumn: DailyDimDate.Date
+
+relationship 0c3d0a9c-9c26-446a-8842-03be3985699f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Segment Data'.Month
+	toColumn: LocalDateTable_f29e84a9-632a-462b-b617-60bc5ca8a155.Date
+
+relationship f00b5f43-020b-b045-367b-e0408931afcc
+	fromColumn: 'campaign unique recipients'.Campaign_name
+	toColumn: 'Unique campaign name'.Campaign_name
+
+relationship 555ffd7a-39b4-26ef-c9d8-bd1e2c0a7342
+	fromColumn: 'flow unique recipients'.Flow_name
+	toColumn: 'Unique flow name'.Flow_name
+
+relationship 93473800-1f3a-2041-d9c3-f6a23f9a42a6
+	crossFilteringBehavior: bothDirections
+	fromColumn: flow.'Flow Name'
+	toColumn: 'Unique flow name'.Flow_name
+
+relationship 7de800e8-077e-909d-3764-0a1e2332c3b4
+	crossFilteringBehavior: bothDirections
+	fromColumn: campaign.'Campaign Name'
+	toColumn: 'Unique campaign name'.Campaign_name
+
+relationship 6f64288e-bf10-46cc-12a3-98a2aaa3adbc
+	fromColumn: 'flow unique recipients'.date
+	toColumn: DailyDimDate.Date
+
+relationship b962aeb6-71cf-bf5e-a08c-918382785d13
+	fromColumn: 'campaign unique recipients'.date
+	toColumn: DailyDimDate.Date
+
+relationship 43da344f-6697-e411-5413-c93a214dfb01
+	isActive: false
+	fromColumn: 'flow unique recipients'.date
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship a621980a-720d-c29d-9c51-1b8408a3ed4e
+	isActive: false
+	fromColumn: 'campaign unique recipients'.date
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship ebbce720-0cda-9d04-d763-3a3af73c35c1
+	fromColumn: 'All campaign'.date
+	toColumn: DailyDimDate.Date
+
+relationship e7d86eed-e9ac-8c46-003d-0171d4783eed
+	fromColumn: 'All Data'.date
+	toColumn: DailyDimDate.Date
+
+relationship 285f306b-c36f-3e53-4064-d9a2287141d1
+	fromColumn: 'All flow'.date
+	toColumn: DailyDimDate.Date
+
+relationship f38eeda9-3312-4b45-bbde-8f1aae202c00
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Unique Profile''s Data'.'End of Week'
+	toColumn: LocalDateTable_2d6be123-b318-4d0a-98f7-5a953de1131c.Date
+
+relationship 6f6d7731-b317-96b8-7433-77c881e030da
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Unique Profile''s Data'.'Start of Week'
+	toColumn: DailyDimDate.Date
+
+relationship 8b0d1092-a555-4cd5-90d4-eaa95cb6346a
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: flow.'Flow Name'
+	toColumn: Klaviyo.'Matching Title'
+
+relationship 9fceedba-91b8-99a1-9c54-0e6b1e36abdb
+	isActive: false
+	fromColumn: 'Segment data weekly'.'Start Date'
+	toColumn: CampaignDimDate.'Send Date'
+
+relationship bf4096ba-4e8c-182b-4d16-791abe208346
+	fromColumn: 'Segment data weekly'.'Start Date'
+	toColumn: DailyDimDate.Date
+
+relationship e84bd870-cb60-4a8a-9d33-e4bf0e4a86a7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: form.Date
+	toColumn: LocalDateTable_3af523a0-13cd-4496-a74d-0837c329dc80.Date
+

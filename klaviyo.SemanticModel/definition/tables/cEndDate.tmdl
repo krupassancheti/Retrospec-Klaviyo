@@ -1,0 +1,29 @@
+table cEndDate
+	lineageTag: a00422f9-5359-4345-a041-5e7036fba779
+
+	column cEndDate
+		dataType: double
+		lineageTag: 023ac29e-5123-4915-b1e8-b72494e1b7c7
+		summarizeBy: sum
+		sourceColumn: cEndDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition cEndDate = m
+		mode: import
+		source =
+				let
+				    // Step 1: Calculate the maximum date from the "All campaign" table
+				    MaxAllCampaignDate = Number.From(List.Max(#"All campaign"[date])),
+				
+				    // Step 2: Calculate the maximum date from the "campaign" table's "send date"
+				    MaxCampaignSendDate = Number.Round(MaxAllCampaignDate, 0)
+				in
+				    MaxCampaignSendDate
+
+	annotation PBI_ResultType = Number
+
+	annotation PBI_NavigationStepName = Navigation
+

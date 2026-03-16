@@ -1,0 +1,27 @@
+table Source
+	lineageTag: 45bc2933-7b00-47b9-9592-d3f71b3fe457
+
+	column Source
+		lineageTag: 7ead744f-3b43-42ed-a293-91421a30f356
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Source]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Source = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "Source", STRING,
+				    {
+				        { "Campaigns" },
+				        { "Flows" }
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = d7203efaf4214718877046f0d19e79a4
+

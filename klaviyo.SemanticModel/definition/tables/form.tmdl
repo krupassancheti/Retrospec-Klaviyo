@@ -1,0 +1,134 @@
+table form
+	lineageTag: 80ff82b2-c6da-47c0-bff2-4723d00e61e5
+
+	column form_views
+		dataType: int64
+		formatString: 0
+		lineageTag: 3136beb9-cbe0-4d3f-a893-aabe5ed5be34
+		summarizeBy: sum
+		sourceColumn: form_views
+
+		annotation SummarizationSetBy = Automatic
+
+	column form_submissions
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c78f244-f5b4-4f57-96ac-91b498898565
+		summarizeBy: sum
+		sourceColumn: form_submissions
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Device Type' = ```
+			
+			IF(
+			    OR(
+			        form[Form Name] = "Evergreen Sitewide Popup Desktop", 
+			        form[Form Name] = "Evergreen Sitewide Popup Desktop [RADIO CATEGORIES]"
+			    ),
+			    "Desktop Popup", 
+			    IF(
+			        OR(
+			            form[Form Name] = "Evergreen Sitewide Popup Mobile", 
+			            form[Form Name] = "Evergreen Sitewide Popup Mobile [RADIO CATEGORIES]"
+			        ),
+			        "Mobile Popup",
+			        IF(
+			            form[Form Name] = "20PercentoffAccessoriesPopUp | Vidi",
+			            "20PercentoffAccessoriesPopUp | Vidi",
+			            IF(
+			                form[Form Name] = "20PercentoffAccessoriesPopUp | Mobile",
+			                "20PercentoffAccessoriesPopUp | Mobile",
+			                "Other"
+			            )
+			        )
+			    )
+			)
+			
+			```
+		lineageTag: 0db7f84b-ba97-4ee9-b5ca-6f6d92e48452
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Form ID'
+		dataType: string
+		lineageTag: 173c5c51-867f-43b5-b227-574f027e0c34
+		summarizeBy: none
+		sourceColumn: Form ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Form Name'
+		dataType: string
+		lineageTag: c375669c-cd6a-4d05-b251-23263d7b7df1
+		summarizeBy: none
+		sourceColumn: Form Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 481f855e-2931-43c6-8877-b8b2838624dc
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: e84bd870-cb60-4a8a-9d33-e4bf0e4a86a7
+			defaultHierarchy: LocalDateTable_3af523a0-13cd-4496-a74d-0837c329dc80.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition form = m
+		mode: import
+		source =
+				let
+				    Source = try GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1AzbAaYruKQjBDyz0kI8v_v6lqeHL7eVy6tnBqv8IhP0/edit?gid=0#gid=0") otherwise null,
+				
+				    Sheet1_Table =
+				        if Source <> null then
+				            try Source{[name="Sheet1",ItemKind="Sheet"]}[Data]
+				            otherwise try Source{[name="Sheet1",ItemKind="Table"]}[Data]
+				            otherwise #table({}, {})
+				        else
+				            #table({}, {}),
+				
+				    #"Promoted Headers" =
+				        if Table.IsEmpty(Sheet1_Table) then
+				            Sheet1_Table
+				        else
+				            Table.PromoteHeaders(Sheet1_Table, [PromoteAllScalars=true]),
+				
+				    #"Split Column by Position" =
+				        if Table.HasColumns(#"Promoted Headers", "Date") then
+				            Table.SplitColumn(#"Promoted Headers", "Date", Splitter.SplitTextByPositions({0, 10}, false), {"Date.1", "Date.2"})
+				        else
+				            #"Promoted Headers",
+				
+				    #"Removed Columns" =
+				        if Table.HasColumns(#"Split Column by Position", "Date.2") then
+				            Table.RemoveColumns(#"Split Column by Position",{"Date.2"})
+				        else
+				            #"Split Column by Position",
+				
+				    #"Changed Type" =
+				        try Table.TransformColumnTypes(#"Removed Columns",
+				            {{"Date.1", type date}, {"Form ID", type text}, {"Form Name", type text},
+				             {"form_views", Int64.Type}, {"form_submissions", Int64.Type}})
+				        otherwise #"Removed Columns",
+				
+				    #"Renamed Columns" =
+				        try Table.RenameColumns(#"Changed Type",{{"Date.1", "Date"}})
+				        otherwise #"Changed Type"
+				
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

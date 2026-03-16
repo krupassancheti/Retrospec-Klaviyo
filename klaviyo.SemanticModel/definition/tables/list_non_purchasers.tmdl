@@ -1,0 +1,40 @@
+table list_non_purchasers
+	lineageTag: e18af912-6650-4625-ade2-ee8a6e8d9445
+
+	column Email
+		dataType: string
+		lineageTag: 1012bbbe-12a2-4da5-b871-e7ffc2037781
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date Added'
+		dataType: dateTime
+		formatString: m/d/yyyy
+		lineageTag: 8017f734-52d1-4159-89ce-f645eef708ac
+		summarizeBy: none
+		sourceColumn: Date Added
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition list_non_purchasers = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("retrospecblob"),
+				    gold = Source{[Name="gold"]}[Data],
+				    #"https://retrospecblob blob core windows net/gold/_klaviyo_data/list_selenium/Nonpurchase_All_Time csv" = gold{[#"Folder Path"="https://retrospecblob.blob.core.windows.net/gold/",Name="klaviyo_data/list_selenium/Nonpurchase_All_Time.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"https://retrospecblob blob core windows net/gold/_klaviyo_data/list_selenium/Nonpurchase_All_Time csv",[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Email", type text}, {"Date Added", type datetime}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"Date Added", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+

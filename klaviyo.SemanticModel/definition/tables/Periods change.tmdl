@@ -1,0 +1,50 @@
+table 'Periods change'
+	lineageTag: e3cc5026-e01f-436c-8db3-97b83e18a881
+
+	column 'Periods change'
+		lineageTag: 6f63ddae-8f7a-4c77-b6d1-82612854c747
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Periods change Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Periods change Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Periods change Fields'
+		isHidden
+		lineageTag: 7a6b0a4c-72d1-4e47-beb2-e5b94debf4be
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Periods change Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Periods change Order'
+		isHidden
+		formatString: 0
+		lineageTag: d9ca9341-6d63-4c3d-b25c-d349675c0566
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Periods change' = calculated
+		mode: import
+		source =
+				{
+				    ("Year", NAMEOF('CampaignDimDate'[Year]), 0),
+				    ("Month", NAMEOF('CampaignDimDate'[Month Name]), 1),
+				    ("Week", NAMEOF('CampaignDimDate'[Year Week]), 2),
+				    ("Day", NAMEOF('CampaignDimDate'[Send Date]), 3)
+				}
+
+	annotation PBI_Id = 6844e4a9452d4cca88c474903318afa9
+

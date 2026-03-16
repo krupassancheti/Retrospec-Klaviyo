@@ -1,0 +1,57 @@
+table cKPI
+	lineageTag: 27d5e506-5f43-4b98-b82b-a4fb4d108570
+
+	column cKPI
+		lineageTag: 99469bb2-4d13-4d76-a770-3d1b11cb5c2f
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'CKPI Order'
+
+		relatedColumnDetails
+			groupByColumn: 'CKPI Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CKPI Fields'
+		isHidden
+		lineageTag: 57bf62da-db99-4a94-8c3d-e18a1e4a5e0b
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'CKPI Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CKPI Order'
+		isHidden
+		formatString: 0
+		lineageTag: 7ef9f420-83f7-46ac-8976-44f2a98d9a06
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition cKPI = calculated
+		mode: import
+		source =
+				{
+				    ("UNIQUE RECIPIENTS", NAMEOF('All_Measures'[CampaignUnqRecipients]), 0),
+				    ("RECIPIENTS", NAMEOF('All_Measures'[cRECIPIENTS]), 1),
+				    ("NO OF CAMPAIGNS", NAMEOF('All_Measures'[No of Campaigns]), 2),
+				    ("UNIQUE OPENS", NAMEOF('All_Measures'[cUNIQUE OPENS]), 3),
+				    ("UNIQUE CLICKS", NAMEOF('All_Measures'[cUNIQUE CLICKS]), 4),
+				    ("CLICK TO RECIEVE RATE", NAMEOF('All_Measures'[cCLICK TO RECIEVE RATE]), 5),
+				    ("CONVERSIONS", NAMEOF('All_Measures'[cCONVERSIONS]), 6),
+				    ("CONVERSION RATE", NAMEOF('All_Measures'[cCONVERSION RATE]), 7),
+				    ("REVENUE", NAMEOF('All_Measures'[cREVENUE]), 8),
+				    ("UNSUBSCRIBE", NAMEOF('All_Measures'[cUNSUBSCRIBE]), 9),
+				    ("UNSUBSCRIBE RATE", NAMEOF('All_Measures'[CampaignUnsubscribeRate]), 10)
+				}
+
+	annotation PBI_Id = a6eb0ca3b9b347e0b0c372ec01ed068c
+

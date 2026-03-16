@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "c32f61ce1b1959fcbe86",
+  "position": {
+    "x": 50.075497597803711,
+    "y": 2375.5113246396709,
+    "z": 18000,
+    "height": 577.89895749799518,
+    "width": 1181.4595028067361,
+    "tabOrder": 16000
+  },
+  "visualGroup": {
+    "displayName": "campaignmatrix",
+    "groupMode": "ScaleMode"
+  }
+}

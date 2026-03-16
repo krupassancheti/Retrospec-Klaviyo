@@ -1,0 +1,67 @@
+table 'flow unique recipients'
+	lineageTag: f5bcb1fc-59fe-4987-9745-3874f617c328
+
+	column date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: bee737f9-9a94-4005-8a84-3da305045d18
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Flow_name
+		dataType: string
+		lineageTag: dadb73eb-7bad-4e31-90b0-c71236543212
+		summarizeBy: none
+		sourceColumn: Flow_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: d199ea58-5be1-456f-b9aa-6210c708a377
+		summarizeBy: sum
+		sourceColumn: unique_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: 7bd1dc11-4a4b-4686-953a-034ec245509f
+		summarizeBy: sum
+		sourceColumn: total_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_unsubscribers
+		dataType: int64
+		formatString: 0
+		lineageTag: a0cdc257-6e6b-4f43-9cd1-93d83d85772f
+		summarizeBy: sum
+		sourceColumn: unique_unsubscribers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'flow unique recipients' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1gmx5TpWxjtrV_Qn6D9_uWRxfBlfQGQQmf4A2zckcaIU/edit?gid=508694693#gid=508694693"),
+				    flow_Table = Source{[name="flow",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(flow_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type datetime}, {"Flow_name", type text}, {"unique_recipients", Int64.Type}, {"total_recipients", Int64.Type}, {"unique_unsubscribers", Int64.Type}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"date", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

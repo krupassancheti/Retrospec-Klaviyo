@@ -1,0 +1,76 @@
+table Tranx_Status
+	lineageTag: b04c4947-0014-413f-bab5-c94608ab6db2
+
+	column ORDER_ID
+		dataType: string
+		lineageTag: 67a3f735-01e0-4ef4-b35c-d949e6550678
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column AMOUNT
+		dataType: double
+		lineageTag: a64015e8-cc3f-4cc6-8266-0a2ed8a66265
+		summarizeBy: sum
+		sourceColumn: AMOUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Order_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 118fe2a6-5096-40f0-a7d5-1027586a2579
+		summarizeBy: none
+		sourceColumn: Order_Date
+
+		variation Variation
+			isDefault
+			relationship: 4c6f4556-e3f5-4c76-9157-ff0cfd9714f7
+			defaultHierarchy: LocalDateTable_fbfd8a88-4840-46c7-ae36-e58705d1faaa.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column STATUS
+		dataType: string
+		lineageTag: 6e5e46b7-c5f0-4443-b6e5-d87787acc79c
+		summarizeBy: none
+		sourceColumn: STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	column KIND
+		dataType: string
+		lineageTag: 27a637ff-4bb7-4fb5-b5a7-37b4c3db5c97
+		summarizeBy: none
+		sourceColumn: KIND
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tranx_Status = m
+		mode: import
+		queryGroup: 'Transform File from gold\Helper Queries'
+		source =
+				let
+				    Source = Snowflake.Databases("pm42754.west-us-2.azure.snowflakecomputing.com", "COMPUTE_WH", null),
+				    POWERBI_Database = Source{[Name="POWERBI",Kind="Database"]}[Data],
+				    SHOPIFY__Schema = POWERBI_Database{[Name="SHOPIFY_",Kind="Schema"]}[Data],
+				    TRANSACTIONS_Table = SHOPIFY__Schema{[Name="TRANSACTIONS",Kind="Table"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(TRANSACTIONS_Table,{"AMOUNT", "CREATED_AT", "ORDER_ID", "STATUS", "KIND"}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Other Columns", "CREATED_AT", Splitter.SplitTextByDelimiter("T", QuoteStyle.Csv), {"CREATED_AT.1", "CREATED_AT.2"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"CREATED_AT.1", type date}, {"CREATED_AT.2", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"CREATED_AT.1", "Order_Date"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"CREATED_AT.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns",{{"ORDER_ID", type text}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type1",{"ORDER_ID", "AMOUNT", "Order_Date", "STATUS", "KIND"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

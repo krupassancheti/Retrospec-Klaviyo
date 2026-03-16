@@ -1,0 +1,55 @@
+table 'cUP KPI'
+	lineageTag: e8fd2be3-c103-495e-b618-58652a07aca2
+
+	column 'cUP KPI'
+		lineageTag: 326d9d74-6c37-413f-a755-257ad90ac1cb
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'cUP KPI Order'
+
+		relatedColumnDetails
+			groupByColumn: 'cUP KPI Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cUP KPI Fields'
+		isHidden
+		lineageTag: 46120fed-038a-4f8f-81a3-6d9b204644d1
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'cUP KPI Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'cUP KPI Order'
+		isHidden
+		formatString: 0
+		lineageTag: cea05bb3-c91e-483a-b53a-50914e61df9b
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'cUP KPI' = calculated
+		mode: import
+		source =
+				{
+				    ("Recipients", NAMEOF('All_Measures'[UP Total Recipients]), 0),
+				    ("Unique Profiles", NAMEOF('All_Measures'[UP Unique Profiles]), 1),
+				    ("Avg. Recipients", NAMEOF('All_Measures'[UP Avg. Recipients]), 2),
+				    ("Unsubscribes", NAMEOF('All_Measures'[UP Unsubscribes]), 3),
+				    ("Unsubscribes Rate", NAMEOF('All_Measures'[UP Unsubscribes Rate]), 4),
+				    ("Conversion", NAMEOF('All_Measures'[UP Conversion]), 5),
+				    ("Conversion Rate", NAMEOF('All_Measures'[UP Conversion Rate]), 6),
+				    ("Revenue", NAMEOF('All_Measures'[UP Revenue]), 7),
+				    ("No of Maillings", NAMEOF('All_Measures'[UP No of Maillings]), 8)
+				}
+
+	annotation PBI_Id = 40609d445b1442efb16e88d3440b674b
+

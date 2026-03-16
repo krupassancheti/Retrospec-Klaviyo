@@ -1,0 +1,94 @@
+table 'CCNF KPI CY/LY'
+	lineageTag: c4df63fa-f0ee-4a37-8bea-cff70e6e9746
+
+	column 'CCNF KPI CY/LY'
+		lineageTag: 70302a5d-a67b-416e-9c4c-9027067150a2
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'CCNF KPI CY/LY Order'
+
+		relatedColumnDetails
+			groupByColumn: 'CCNF KPI CY/LY Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CCNF KPI CY/LY Fields'
+		isHidden
+		lineageTag: 4beafdae-a79d-4a9a-ac53-1e57cfca6449
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'CCNF KPI CY/LY Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CCNF KPI CY/LY Order'
+		isHidden
+		formatString: 0
+		lineageTag: 5d3fbb4e-f676-469b-836f-8c921fb2666e
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value4
+		lineageTag: 41fad9be-088c-4ebb-803e-e0b59fa39ce0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'CCNF KPI CY/LY' = calculated
+		mode: import
+		source = ```
+				
+				{
+				
+				    -- RECIPIENTS
+				    ("RECIPIENTS",        NAMEOF('All_Measures'[CCNF Recp]),                  2,  "RECIPIENTS"),
+				    ("RECIPIENTS (PY)",   NAMEOF('All_Measures'[ccnfPYRecipients]),           3,  "RECIPIENTS"),
+				
+				    -- UNIQUE OPENS
+				    ("UNIQUE OPENS",      NAMEOF('All_Measures'[CCNF Unique Opens]),          6,  "UNIQUE OPENS"),
+				    ("UNIQUE OPENS (PY)", NAMEOF('All_Measures'[ccnfPYUnqOp]),                7,  "UNIQUE OPENS"),
+				
+				    -- UNIQUE CLICKS
+				    ("UNIQUE CLICKS",      NAMEOF('All_Measures'[CCNF Unique Clicks]),        8,  "UNIQUE CLICKS"),
+				    ("UNIQUE CLICKS (PY)", NAMEOF('All_Measures'[ccnfPYTotalUnqClick]),       9,  "UNIQUE CLICKS"),
+				
+				    -- CLICK THROUGH RATE
+				    ("CLICK THROUGH RATE",      NAMEOF('All_Measures'[CCNF Click to receive rate]), 10, "CLICK THROUGH RATE"),
+				    ("CLICK THROUGH RATE (PY)", NAMEOF('All_Measures'[ccnfPYDailyClickRate]),       11, "CLICK THROUGH RATE"),
+				
+				    -- CONVERSION
+				    ("CONVERSION",      NAMEOF('All_Measures'[CCNF Conversion]),              12, "CONVERSION"),
+				    ("CONVERSION (PY)", NAMEOF('All_Measures'[ccnfPYTotalConversions]),       13, "CONVERSION"),
+				
+				    -- CONVERSION RATE
+				    ("CONVERSION RATE",      NAMEOF('All_Measures'[CCNF Conversion Rate]),    14, "CONVERSION RATE"),
+				    ("CONVERSION RATE (PY)", NAMEOF('All_Measures'[ccnfPYTotalConversionsRate]), 15, "CONVERSION RATE"),
+				
+				    -- REVENUE
+				    ("REVENUE",      NAMEOF('All_Measures'[CCNF Revenue]),                    16, "REVENUE"),
+				    ("REVENUE (PY)", NAMEOF('All_Measures'[ccnfPYTotalRevenue]),              17, "REVENUE"),
+				
+				    -- UNSUBSCRIBED
+				    ("UNSUBSCRIBED",      NAMEOF('All_Measures'[CCNF Unsubscribe]),           20, "UNSUBSCRIBED"),
+				    ("UNSUBSCRIBED (PY)", NAMEOF('All_Measures'[ccnfPYTotalUnsub]),           21, "UNSUBSCRIBED"),
+				
+				    -- UNSUBSCRIBED RATE
+				    ("UNSUBSCRIBED RATE",      NAMEOF('All_Measures'[CCNF Unsubscribed Rate]), 22, "UNSUBSCRIBED RATE"),
+				    ("UNSUBSCRIBED RATE (PY)", NAMEOF('All_Measures'[ccnfPYTotalUnsubRate]),   23, "UNSUBSCRIBED RATE")
+				
+				}
+				
+				```
+
+	annotation PBI_Id = 530f32f2aa1a4f55a119d674f8f1fa74
+

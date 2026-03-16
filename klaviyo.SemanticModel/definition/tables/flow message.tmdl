@@ -1,0 +1,200 @@
+table 'flow message'
+	lineageTag: faaf43d8-0f18-403f-9895-a5ec7889ef08
+
+	column Day
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 28462b2e-e27e-4929-8f35-9ea810577980
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Flow ID'
+		dataType: string
+		lineageTag: d26b85c9-7e5e-4500-8fe6-29a261faf60d
+		summarizeBy: none
+		sourceColumn: Flow ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow Name'
+		dataType: string
+		lineageTag: a212aa28-76cd-4b7c-8869-3d9026ffafbd
+		summarizeBy: none
+		sourceColumn: Flow Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Message ID'
+		dataType: string
+		lineageTag: d477163d-e80f-4474-b427-3789bd8683af
+		summarizeBy: none
+		sourceColumn: Message ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Message Name'
+		dataType: string
+		lineageTag: b1091311-4df1-49da-8d71-d138c9939f4f
+		summarizeBy: none
+		sourceColumn: Message Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Message Channel'
+		dataType: string
+		lineageTag: e51c5f3e-5b50-4de3-9f36-4adaa14809c3
+		summarizeBy: none
+		sourceColumn: Message Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 53a9b2a0-89bf-4385-8005-035ba2d924c0
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Recipients'
+		dataType: int64
+		formatString: 0
+		lineageTag: c35e19b7-36a3-4e7b-9ed2-cf4b632f37b6
+		summarizeBy: sum
+		sourceColumn: Total Recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Opens'
+		dataType: int64
+		formatString: 0
+		lineageTag: 62140326-83b0-41cf-b53d-38fb4c31836d
+		summarizeBy: sum
+		sourceColumn: Total Opens
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Opens'
+		dataType: int64
+		formatString: 0
+		lineageTag: 157f9017-87d5-4746-89c8-0840d8e74aa0
+		summarizeBy: sum
+		sourceColumn: Unique Opens
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Clicks'
+		dataType: int64
+		formatString: 0
+		lineageTag: daaa4239-d8fb-4171-a94d-15cd8162d474
+		summarizeBy: sum
+		sourceColumn: Total Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Clicks'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01302e9a-1216-4b07-b40a-e0aeb49f06dd
+		summarizeBy: sum
+		sourceColumn: Unique Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bounces
+		dataType: int64
+		formatString: 0
+		lineageTag: d6b152d1-3652-47cf-9fa5-d22247f97937
+		summarizeBy: sum
+		sourceColumn: Bounces
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: c5153e73-8deb-48b3-8f49-5e6f56ece9e0
+		summarizeBy: sum
+		sourceColumn: Total Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 750bfc38-0351-4f22-be30-6f33c07d5781
+		summarizeBy: sum
+		sourceColumn: Unique Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Placed Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: 082f4ab3-80db-41e7-99d2-5dd522dd562a
+		summarizeBy: sum
+		sourceColumn: Total Placed Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Placed Order Value'
+		dataType: double
+		lineageTag: d8d2d520-c8c9-4229-8fb7-57832747f085
+		summarizeBy: sum
+		sourceColumn: Total Placed Order Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Tags
+		dataType: string
+		lineageTag: 0ce5a363-9c16-4e5f-b513-6c45038184be
+		summarizeBy: none
+		sourceColumn: Tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow Subcategory'
+		dataType: string
+		lineageTag: 894070f8-33d1-44c5-862e-296d1c2796da
+		summarizeBy: none
+		sourceColumn: Flow Subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Flow Catagory'
+		dataType: string
+		lineageTag: 3e13b1ac-7fd3-455f-8122-0e648193abd3
+		summarizeBy: none
+		sourceColumn: Flow Catagory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'flow message' = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("retrospecblob"),
+				    gold1 = Source{[Name="gold"]}[Data],
+				    #"https://retrospecblob blob core windows net/gold/_klaviyo_data/flow_message/flow_message csv" = gold1{[#"Folder Path"="https://retrospecblob.blob.core.windows.net/gold/",Name="klaviyo_data/flow_message/flow_message.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"https://retrospecblob blob core windows net/gold/_klaviyo_data/flow_message/flow_message csv",[Delimiter=",", Columns=18, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Day", type date}, {"Flow ID", type text}, {"Flow Name", type text}, {"Message ID", type text}, {"Message Name", type text}, {"Message Channel", type text}, {"Status", type text}, {"Total Recipients", Int64.Type}, {"Total Opens", Int64.Type}, {"Unique Opens", Int64.Type}, {"Total Clicks", Int64.Type}, {"Unique Clicks", Int64.Type}, {"Bounces", Int64.Type}, {"Total Unsubscribes", Int64.Type}, {"Unique Unsubscribes", Int64.Type}, {"Total Placed Order", Int64.Type}, {"Total Placed Order Value", type number}, {"Tags", type text}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "Flow Category", each if Text.Contains([Message Name], "Welcome: Bikes") then "Welcome Bikes" else if Text.Contains([Message Name], "Welcome: E-Bikes") then "Welcome E-Bikes" else if Text.Contains([Message Name], "Welcome: Water") then "Welcome Water" else if Text.Contains([Message Name], "Welcome: Kids") then "Welcome Kids" else if Text.Contains([Message Name], "BA EBikes") then "Browse Ebike" else if Text.Contains([Message Name], "BA General") then "Browse General" else if Text.Contains([Message Name], "BA Kids") then "Browse Kids" else if Text.Contains([Message Name], "BA Water") then "Browse Water" else if Text.StartsWith([Message Name], "Bikes Email") then "Browse Bike" else if Text.Contains([Message Name], "Ebike PP") then "Post Purchase Ebike" else if Text.Contains([Message Name], "Kids PP") then "Post Purchase Browse Kids" else if Text.Contains([Message Name], "Water PP") then "Post Purchase Browse Water" else if Text.Contains([Message Name], "Bike PP") then "Post Purchase Bike" else if Text.Contains([Message Name], "General Accessories/Skate/Snow/Exercise/Camping PP") then "Post Purchase Browse General" else "Other"),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "Flow Name Catagory", each if [Flow Category] = "Welcome Bikes" then "Welcome SB" else if [Flow Category] = "Welcome E-Bikes" then "Welcome SB" else if [Flow Category] = "Welcome Water" then "Welcome SB" else if [Flow Category] = "Welcome Kids" then "Welcome SB" else if [Flow Category] = "Browse Bike" then "Browse Abandonment By Category" else if [Flow Category] = "Browse Ebike" then "Browse Abandonment By Category" else if [Flow Category] = "Browse Water" then "Browse Abandonment By Category" else if [Flow Category] = "Browse Kids" then "Browse Abandonment By Category" else if [Flow Category] = "Browse General" then "Browse Abandonment By Category" else if [Flow Category] = "Post Purchase Bike" then "Post Purchase By Category & Rebuy [Live 5/15/24]" else if [Flow Category] = "Post Purchase Ebike" then "Post Purchase By Category & Rebuy [Live 5/15/24]" else if [Flow Category] = "Post Purchase Browse Water" then "Post Purchase By Category & Rebuy [Live 5/15/24]" else if [Flow Category] = "Post Purchase Browse Kids" then "Post Purchase By Category & Rebuy [Live 5/15/24]" else if [Flow Category] = "Post Purchase Browse General" then "Post Purchase By Category & Rebuy [Live 5/15/24]" else "Other"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column1",{{"Flow Category", type text}, {"Flow Name Catagory", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Flow Category", "Flow Subcategory"}, {"Flow Name Catagory", "Flow Catagory"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

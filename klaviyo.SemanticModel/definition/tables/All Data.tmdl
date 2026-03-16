@@ -1,0 +1,109 @@
+table 'All Data'
+	lineageTag: e02ca634-367c-40ce-9af9-f2636c952f4a
+
+	measure ADTotal_Recipients = SUM('All Data'[total_recipients])
+		formatString: 0
+		lineageTag: 75b35f60-87ea-447e-a52f-e9be5a13bbef
+
+	measure ADUnique_Recipients = SUM('All Data'[unique_recipients])
+		formatString: 0
+		lineageTag: 1d250a14-8c5f-4bc0-9455-5a86eb4f624f
+
+	column date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 814c11a9-1312-45c6-837d-d601877270f5
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column unique_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: ff8a65c6-3741-4c39-8cce-3d7eb207e2e1
+		summarizeBy: sum
+		sourceColumn: unique_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: b9bfee48-77e9-4b45-bcab-bb134be08f59
+		summarizeBy: sum
+		sourceColumn: total_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date type'
+		dataType: string
+		lineageTag: 1fa8b431-c722-4b56-b4d5-f8ef756b8d34
+		summarizeBy: none
+		sourceColumn: Date type
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxis =
+			
+			SWITCH(
+			    TRUE(),
+			    'All Data'[Date type] = "Day", FORMAT( 'All Data'[date], "MM-DD-YYYY" ),
+			    'All Data'[Date type] = "Week",FORMAT( RELATED ( DailyDimDate[Start of Week] ), "MM-DD-YYYY"),
+			    'All Data'[Date type] = "Month", FORMAT( 'All Data'[date], "MMM-YY" )
+			)
+		lineageTag: d2268d21-06f8-45ec-839e-95adaba964f3
+		summarizeBy: none
+		sortByColumn: date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'All Data' = m
+		mode: import
+		source =
+				let
+				    Source =
+				        GoogleSheets.Contents(
+				            "https://docs.google.com/spreadsheets/d/1gmx5TpWxjtrV_Qn6D9_uWRxfBlfQGQQmf4A2zckcaIU"
+				        ),
+				
+				    SheetTable =
+				        Source{[name="All Data", ItemKind="Table"]}[Data],
+				
+				    // Remove blank rows BEFORE promote headers
+				    NonBlankRows =
+				        Table.SelectRows(
+				            SheetTable,
+				            each
+				                List.NonNullCount(
+				                    List.Transform(
+				                        Record.FieldValues(_),
+				                        each if _ = "" then null else _
+				                    )
+				                ) > 0
+				        ),
+				
+				    // Promote headers safely
+				    PromotedHeaders =
+				        Table.PromoteHeaders(
+				            NonBlankRows,
+				            [PromoteAllScalars = true]
+				        ),
+				
+				    // Change non-date columns first
+				    ChangedType =
+				        Table.TransformColumnTypes(PromotedHeaders,{{"unique_recipients", Int64.Type}, {"total_recipients", Int64.Type}, {"Date type", type text}, {"date", type datetime}}),
+				    #"Changed Type" = Table.TransformColumnTypes(ChangedType,{{"date", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,55 @@
+table 'cSMS KPI'
+	lineageTag: 3c2b0b78-812f-4b02-8c85-15b24e58c7a8
+
+	column 'SMS KPI 2'
+		lineageTag: 22a2f790-4379-4392-a4b5-340f25d7abec
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'SMS KPI 2 Order'
+
+		relatedColumnDetails
+			groupByColumn: 'SMS KPI 2 Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SMS KPI 2 Fields'
+		isHidden
+		lineageTag: a8d1db45-5327-4b6c-a675-639444981e84
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'SMS KPI 2 Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SMS KPI 2 Order'
+		isHidden
+		formatString: 0
+		lineageTag: 4618fa7c-5cb9-4d8e-981d-77a103ffd024
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'cSMS KPI' = calculated
+		mode: import
+		source =
+				{
+				    ("RECIPIENTS", NAMEOF('All_Measures'[cSMS_Recipients]), 0),
+				    ("UNIQUE CLICKS", NAMEOF('All_Measures'[cSMS_Unique_Clicks]), 1),
+				    ("CLICK RATE", NAMEOF('All_Measures'[cSMS_Click_rate]), 2),
+				    ("ORDERS", NAMEOF('All_Measures'[cSMS_Orders]), 3),
+				    ("REVENUE", NAMEOF('All_Measures'[cSMS_Revenue]), 4),
+				    ("CONVERSION RATE", NAMEOF('All_Measures'[cSMS_Conversion_rate]), 5),
+				    ("FAILED TO DELIVER SMS", NAMEOF('All_Measures'[cSMS_Failed_to_Deliver_SMS]), 6),
+				    ("UNSUBSCRIBE", NAMEOF('All_Measures'[cSMS_Unsubscribe]), 7),
+				    ("UNSUBSCRIBE RATE", NAMEOF('All_Measures'[cSMS_Unsubscribe_rate]), 8)
+				}
+
+	annotation PBI_Id = d6675ebfc55a425085a53a1206c396de
+

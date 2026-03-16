@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "e0b45219600e37b29e00",
+  "position": {
+    "x": 35,
+    "y": 1426,
+    "z": 8000,
+    "height": 281,
+    "width": 610.25755879059352,
+    "tabOrder": 41000
+  },
+  "visualGroup": {
+    "displayName": "Klaviyo Orders",
+    "groupMode": "ScaleMode"
+  }
+}

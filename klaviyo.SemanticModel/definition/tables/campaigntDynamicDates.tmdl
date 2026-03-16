@@ -1,0 +1,108 @@
+table campaigntDynamicDates
+	lineageTag: d1562bb8-1449-4b35-80d7-c29261f6d27b
+
+	column Date
+		formatString: General Date
+		lineageTag: e9d9c312-0617-43df-9b3a-6234a1c6e809
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		lineageTag: 95d0398e-dbcd-4307-baa6-6abb6ab87d1e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: a1d4a6f3-ec56-4db5-86ec-8780009c0e19
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxis =
+			
+			SWITCH(
+			    TRUE(),
+			    campaigntDynamicDates[Type] = "Day", FORMAT( campaigntDynamicDates[Date], "MM-DD-YYYY" ),
+			    campaigntDynamicDates[Type] = "Week",FORMAT( RELATED ( CampaignDimDate[Start of Week] ), "MM-DD-YYYY"),
+			    campaigntDynamicDates[Type] = "Month", FORMAT( campaigntDynamicDates[Date], "MMM-YY" ),
+			    campaigntDynamicDates[Type] = "Quarter", "Q" & FORMAT( campaigntDynamicDates[Date], "Q-YY"),
+			    campaigntDynamicDates[Type] = "Year", FORMAT( campaigntDynamicDates[Date], "YYYY" ))
+		lineageTag: 6020e2a9-02a7-4ece-aec9-b809985b1d1c
+		summarizeBy: none
+		sortByColumn: xAxisOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column xAxisOrder =
+			
+			SWITCH(
+			    TRUE(),
+			    campaigntDynamicDates[Type] = "Day", FORMAT( campaigntDynamicDates[Date], "General Number" ),
+			    campaigntDynamicDates[Type] = "Week",FORMAT( RELATED ( CampaignDimDate[Start of Week] ), "General Number" ),
+			    campaigntDynamicDates[Type] = "Month", FORMAT( DATE(YEAR( campaigntDynamicDates[Date] ), MONTH( campaigntDynamicDates[Date] ), 1 ), "General Number"),
+			    campaigntDynamicDates[Type] = "Quarter", YEAR( campaigntDynamicDates[Date] ) & QUARTER( campaigntDynamicDates[Date] ),
+			    campaigntDynamicDates[Type] = "Year", FORMAT( YEAR( campaigntDynamicDates[Date] ), "General Number")
+			)
+		lineageTag: 2c418baa-ee43-44cb-825f-07528a9d808b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column uTYPE =
+			
+			SWITCH(
+			    TRUE(),
+			    campaigntDynamicDates[Order] = 1, "D A Y",
+			    campaigntDynamicDates[Order] = 2, "W E E K",
+			    campaigntDynamicDates[Order] = 3, "M O N T H",
+			    campaigntDynamicDates[Order] = 4, "Q U A R T E R",
+			    campaigntDynamicDates[Order] = 5, "Y E A R"
+			)
+		lineageTag: 1424ffb4-7949-4f06-957b-de0531796575
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition campaigntDynamicDates = calculated
+		mode: import
+		source =
+				
+				UNION(
+				    ADDCOLUMNS (
+				        CALENDAR ( MIN ( CampaignDimDate[Send Date] ), TODAY() ),
+				        "Type", "Day",
+				        "Order", 1
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( CampaignDimDate[Send Date]), TODAY() ),
+				        "Type", "Week",
+				        "Order", 2
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( CampaignDimDate[Send Date] ), TODAY() ),
+				        "Type", "Month",
+				        "Order", 3
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( CampaignDimDate[Send Date] ), TODAY() ),
+				        "Type", "Quarter",
+				        "Order", 4
+				    ),
+				        ADDCOLUMNS (
+				        CALENDAR ( MIN ( CampaignDimDate[Send Date] ), TODAY() ),
+				        "Type", "Year",
+				        "Order", 5
+				    )
+				)
+
+	annotation PBI_Id = 15196daa6fb844ebad9e1deae5b2fb74
+

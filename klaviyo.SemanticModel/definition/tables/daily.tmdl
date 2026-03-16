@@ -1,0 +1,148 @@
+table daily
+	lineageTag: 4f52bee7-594f-413c-b4fe-cae75a0a8257
+
+	column Total_Opened_Email = daily[Opened Email Count]
+		formatString: 0
+		lineageTag: 4f7eb103-7d5a-448f-af71-31e575cbd7ba
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unique_Opened_Email = daily[Opened Email Unique]
+		formatString: 0
+		lineageTag: 0711803e-f23d-4c59-8d18-26913a3a67d6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Clicked_Email = daily[Clicked Email Count]
+		formatString: 0
+		lineageTag: 353a7b62-75de-4f26-b7f5-0a6fc35ecf09
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 561509fe-d9b3-4283-8c5e-21464127780f
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Received Email Unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: f02a246d-842c-40ca-afa3-4d2ece5c2606
+		summarizeBy: sum
+		sourceColumn: Received Email Unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Received Email Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a68b1757-f3f6-46fb-ad59-47201e5de846
+		summarizeBy: sum
+		sourceColumn: Received Email Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opened Email Unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: 49472986-f460-417c-9dc4-66e329281609
+		summarizeBy: sum
+		sourceColumn: Opened Email Unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opened Email Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1581211d-0647-499d-b0d5-360d4ed2e8ed
+		summarizeBy: sum
+		sourceColumn: Opened Email Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clicked Email Unique'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6e7def3d-b8c3-44b8-8a7e-b5686410cd02
+		summarizeBy: sum
+		sourceColumn: Clicked Email Unique
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Clicked Email Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: c0bc1f1d-dedc-4929-afa4-83133d8e8d56
+		summarizeBy: sum
+		sourceColumn: Clicked Email Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Placed Order Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ecf1e19-f767-40d6-a139-978d95129edd
+		summarizeBy: sum
+		sourceColumn: Placed Order Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6437dcc0-a563-4ec8-9641-c287aa9b7a58
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Unsubscribed'
+		dataType: double
+		lineageTag: 9360b8a3-6014-4344-b9f2-bf442c4bd942
+		summarizeBy: sum
+		sourceColumn: Unique Unsubscribed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition daily = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("retrospecblob"),
+				    gold1 = Source{[Name="gold"]}[Data],
+				    #"https://retrospecblob blob core windows net/gold/_klaviyo_data/daily_selenium/daily csv" = gold1{[#"Folder Path"="https://retrospecblob.blob.core.windows.net/gold/",Name="klaviyo_data/daily_selenium/daily.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"https://retrospecblob blob core windows net/gold/_klaviyo_data/daily_selenium/daily csv",[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Promoted Headers",{"Day", "Unique Received Email", "Total Received Email", "Unique Opened Email", "Total Opened Email", "Unique Clicked Email", "Total Clicked Email", "Total Placed Order", "Total Placed Order Value"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Other Columns",{{"Day", "Date"}, {"Unique Received Email", "Received Email Unique"}, {"Total Received Email", "Received Email Count"}, {"Total Opened Email", "Opened Email Count"}, {"Unique Opened Email", "Opened Email Unique"}, {"Total Clicked Email", "Clicked Email Count"}, {"Unique Clicked Email", "Clicked Email Unique"}, {"Total Placed Order", "Placed Order Count"}, {"Total Placed Order Value", "Placed Order Sum_value"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Date", type datetime}, {"Received Email Unique", Int64.Type}, {"Received Email Count", Int64.Type}, {"Opened Email Unique", Int64.Type}, {"Opened Email Count", Int64.Type}, {"Clicked Email Unique", Int64.Type}, {"Clicked Email Count", Int64.Type}, {"Placed Order Count", Int64.Type}, {"Placed Order Sum_value", Int64.Type}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each true),
+				    #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"Date", Order.Descending}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Sorted Rows", each true),
+				    #"Sorted Rows1" = Table.Sort(#"Filtered Rows1",{{"Date", Order.Descending}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Sorted Rows1",{{"Placed Order Sum_value", "Revenue"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Revenue", Currency.Type}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Changed Type1", {"Date"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Removed Duplicates",{{"Date", type date}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type2", "Unique Unsubscribed", each ""),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom",{{"Unique Unsubscribed", type number}})
+				in
+				    #"Changed Type3"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

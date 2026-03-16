@@ -1,0 +1,282 @@
+table 'Segment data weekly'
+	lineageTag: 92939858-e9b7-490e-8150-e6e3d2e6165e
+
+	column Date
+		dataType: string
+		lineageTag: a7a70089-b8fe-4eb1-b43c-cba351bbe13d
+		summarizeBy: none
+		sourceColumn: Date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group Id'
+		dataType: string
+		lineageTag: 85bfbde7-441c-4e95-ac0e-b7c0cf0776f0
+		summarizeBy: none
+		sourceColumn: Group Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column List/Segment
+		dataType: string
+		lineageTag: 194f8ef9-c44b-4b7e-a0aa-bdac7ffdb0e1
+		summarizeBy: none
+		sourceColumn: List/Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Recipients'
+		dataType: int64
+		formatString: 0
+		lineageTag: 63aebcad-a85b-4f36-aef3-97d7c081e969
+		summarizeBy: sum
+		sourceColumn: Total Recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Open Rate'
+		dataType: double
+		lineageTag: 98340831-f27e-4ab9-94e6-7324154485d2
+		summarizeBy: sum
+		sourceColumn: Open Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Click Rate'
+		dataType: double
+		lineageTag: d9aaee3f-d239-4a23-828a-5b8a9b5be579
+		summarizeBy: sum
+		sourceColumn: Click Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unique Opens'
+		dataType: int64
+		formatString: 0
+		lineageTag: b1ce683d-4b46-428e-b4ac-1f5cbf1e86b9
+		summarizeBy: sum
+		sourceColumn: Unique Opens
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Clicks'
+		dataType: int64
+		formatString: 0
+		lineageTag: d5a99b8f-a25c-4067-81d4-be43eab49747
+		summarizeBy: sum
+		sourceColumn: Unique Clicks
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unique Unsubscribes'
+		dataType: int64
+		formatString: 0
+		lineageTag: d301c430-db5a-4fe5-b26b-2dc4753b0056
+		summarizeBy: sum
+		sourceColumn: Unique Unsubscribes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spam Complaints'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d12ea75-6625-4352-9bce-b0f0c2d14c8a
+		summarizeBy: sum
+		sourceColumn: Spam Complaints
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bounces
+		dataType: int64
+		formatString: 0
+		lineageTag: 379878f0-0743-4aae-9383-10eb31dbb948
+		summarizeBy: sum
+		sourceColumn: Bounces
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unsubscribe Rate'
+		dataType: double
+		lineageTag: b6cf6908-f97a-40d9-839c-b915692faaf8
+		summarizeBy: sum
+		sourceColumn: Unsubscribe Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Spam Complaints Rate'
+		dataType: double
+		lineageTag: 1fd6fba5-2c0a-436c-b098-9c8bd71d5989
+		summarizeBy: sum
+		sourceColumn: Spam Complaints Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Bounce Rate'
+		dataType: double
+		lineageTag: 60f68955-3986-40ad-b59c-22704e70c370
+		summarizeBy: sum
+		sourceColumn: Bounce Rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Placed Order Value'
+		dataType: double
+		lineageTag: 0f7eb7e9-764a-4745-b119-72f41d2c52c2
+		summarizeBy: sum
+		sourceColumn: Total Placed Order Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Placed Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: 43cf1328-c10f-4ac1-80f6-9f13dd9efaf6
+		summarizeBy: sum
+		sourceColumn: Total Placed Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Campaign Channel'
+		dataType: string
+		lineageTag: 1eef205e-664e-4bd2-8279-bb0fa643e844
+		summarizeBy: none
+		sourceColumn: Campaign Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 53302472-5f21-43a4-89c3-6b7a1c8001f5
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Segment data weekly' = m
+		mode: import
+		source =
+				let
+				    Source = AzureStorage.Blobs("https://retrospecblob.blob.core.windows.net"),
+				    gold = Source{[Name="gold"]}[Data],
+				
+				    // Filter required file
+				    #"Filtered Rows" =
+				        Table.SelectRows(
+				            gold,
+				            each [Name] = "klaviyo_data/email_segment_report_weekly/email_segment_report_weekly.csv"
+				        ),
+				
+				    #"Filtered Hidden Files" =
+				        Table.SelectRows(
+				            #"Filtered Rows",
+				            each [Attributes]?[Hidden]? <> true
+				        ),
+				
+				    // Parse CSV directly (replaces Transform File (4))
+				    #"Parsed CSV" =
+				        Table.AddColumn(
+				            #"Filtered Hidden Files",
+				            "Data",
+				            each Csv.Document(
+				                [Content],
+				                [
+				                    Delimiter = ",",
+				                    Columns = 17,
+				                    Encoding = 1252,
+				                    QuoteStyle = QuoteStyle.None
+				                ]
+				            )
+				        ),
+				
+				    // Promote headers
+				    #"Promoted Headers" =
+				        Table.TransformColumns(
+				            #"Parsed CSV",
+				            {
+				                "Data",
+				                each Table.PromoteHeaders(_, [PromoteAllScalars = true])
+				            }
+				        ),
+				
+				    // Keep only parsed table
+				    #"Removed Other Columns" =
+				        Table.SelectColumns(#"Promoted Headers", {"Data"}),
+				
+				    // Expand table
+				    #"Expanded Table" =
+				        Table.ExpandTableColumn(
+				            #"Removed Other Columns",
+				            "Data",
+				            Table.ColumnNames(
+				                Table.PromoteHeaders(
+				                    Csv.Document(
+				                        #"Filtered Hidden Files"{0}[Content],
+				                        [
+				                            Delimiter = ",",
+				                            Columns = 17,
+				                            Encoding = 1252,
+				                            QuoteStyle = QuoteStyle.None
+				                        ]
+				                    ),
+				                    [PromoteAllScalars = true]
+				                )
+				            )
+				        ),
+				
+				    // Change data types
+				    #"Changed Type" =
+				        Table.TransformColumnTypes(
+				            #"Expanded Table",
+				            {
+				                {"Date", type text},
+				                {"Group Id", type text},
+				                {"List/Segment", type text},
+				                {"Total Recipients", Int64.Type},
+				                {"Open Rate", type number},
+				                {"Click Rate", type number},
+				                {"Unique Opens", Int64.Type},
+				                {"Unique Clicks", Int64.Type},
+				                {"Unique Unsubscribes", Int64.Type},
+				                {"Spam Complaints", Int64.Type},
+				                {"Bounces", Int64.Type},
+				                {"Unsubscribe Rate", type number},
+				                {"Spam Complaints Rate", type number},
+				                {"Bounce Rate", type number},
+				                {"Total Placed Order Value", type number},
+				                {"Total Placed Order", Int64.Type},
+				                {"Campaign Channel", type text}
+				            }
+				        ),
+				
+				    // Extract date text
+				    #"Added Start Date Text" =
+				        Table.AddColumn(
+				            #"Changed Type",
+				            "Start Date",
+				            each Date.From(Text.Middle([Date], 0, 11)),
+				            type date
+				        )
+				in
+				    #"Added Start Date Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

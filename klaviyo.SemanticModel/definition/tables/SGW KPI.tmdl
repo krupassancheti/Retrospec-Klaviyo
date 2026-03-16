@@ -1,0 +1,60 @@
+table 'SGW KPI'
+	lineageTag: fb1ad6b0-0e3d-4723-b05e-af2f98fa4de8
+
+	column 'SGW KPI'
+		lineageTag: 6e34647e-2eb2-4558-80a2-80d3a58726b6
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'SGW KPI Order'
+
+		relatedColumnDetails
+			groupByColumn: 'SGW KPI Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SGW KPI Fields'
+		isHidden
+		lineageTag: 82fac8ae-d346-41f4-8f1a-792174570d8d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'SGW KPI Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SGW KPI Order'
+		isHidden
+		formatString: 0
+		lineageTag: 87bec896-2511-4c69-9b56-6dd5c7286a02
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'SGW KPI' = calculated
+		mode: import
+		source =
+				{
+				    ("Recipients", NAMEOF('All_Measures'[cSGW_Recipients]), 0),
+				    ("Unique opens", NAMEOF('All_Measures'[cSGW_Unique_Opens]), 1),
+				    ("Open rate", NAMEOF('All_Measures'[cSGW_Open_rate]), 2),
+				    ("Unique clicks", NAMEOF('All_Measures'[cSGW_Unique_Clicks]), 3),
+				    ("Click rate", NAMEOF('All_Measures'[cSGW_Click_rate]), 4),
+				    ("Email bounces", NAMEOF('All_Measures'[cSGW_Email_Bounces]), 5),
+				    ("Email bounces rate", NAMEOF('All_Measures'[cSGW_Email_bounces_rate]), 6),
+				    ("Unsubscribes", NAMEOF('All_Measures'[cSGW_Unique_Unsubscribes]), 7),
+				    ("Unsubscribe rate", NAMEOF('All_Measures'[cSGW_Unsubscribe_rate]), 8),
+				    ("Spam complaints", NAMEOF('All_Measures'[cSGW_Spam_Complaints]), 9),
+				    ("Spam complaints rate", NAMEOF('All_Measures'[cSGW_Spam_complaints_rate]), 10),
+				    ("Orders", NAMEOF('All_Measures'[cSGW_Orders]), 11),
+				    ("Conversion rate", NAMEOF('All_Measures'[cSGW_Conversion_rate]), 12),
+				    ("Revenue", NAMEOF('All_Measures'[cSGW_Revenue]), 13)
+				}
+
+	annotation PBI_Id = 92458b055a394dbcbec6f76b6dabde81
+

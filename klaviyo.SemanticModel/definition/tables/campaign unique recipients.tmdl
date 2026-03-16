@@ -1,0 +1,58 @@
+table 'campaign unique recipients'
+	lineageTag: 7e82d5a8-a0e4-44eb-8bf3-98ef8821f30b
+
+	column date
+		dataType: dateTime
+		formatString: mm/dd/yyyy
+		lineageTag: 69fa444a-04e0-4bd8-b819-c6b5a5e3a72e
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Campaign_name
+		dataType: string
+		lineageTag: e58fc3b0-98c0-477a-a69d-49556235b9ba
+		summarizeBy: none
+		sourceColumn: Campaign_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column unique_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: ee83c53e-4e48-4354-88eb-8e33aee3462d
+		summarizeBy: sum
+		sourceColumn: unique_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_recipients
+		dataType: int64
+		formatString: 0
+		lineageTag: b1f0a27b-9f3c-4c42-be6d-38b7443ff86d
+		summarizeBy: sum
+		sourceColumn: total_recipients
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'campaign unique recipients' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1gmx5TpWxjtrV_Qn6D9_uWRxfBlfQGQQmf4A2zckcaIU/edit?gid=2111921607#gid=2111921607"),
+				    campaign_Table = Source{[name="campaign",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(campaign_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date", type datetime}, {"Campaign_name", type text}, {"unique_recipients", Int64.Type}, {"total_recipients", Int64.Type}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"date", type date}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
