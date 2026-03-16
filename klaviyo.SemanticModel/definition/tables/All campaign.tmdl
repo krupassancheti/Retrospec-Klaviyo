@@ -1,7 +1,7 @@
 table 'All campaign'
 	lineageTag: ae90f086-a138-4f87-81cc-9840c91da008
 
-	measure ACTotal_Recipients = SUM('All campaign'[total_recipients])
+	measure ACTotal_Recipients = SUM('All campaign'[unique_recipients])
 		formatString: 0
 		lineageTag: b1076362-9f4b-4d4c-bfd4-52887a6e7d56
 
