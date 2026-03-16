@@ -1,0 +1,66 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "v11_table_campaigns01",
+  "position": { "x": 645, "y": 155, "z": 2000, "height": 255, "width": 615, "tabOrder": 10000 },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": { "Column": { "Expression": { "SourceRef": { "Entity": "campaign" } }, "Property": "Campaign Name" } },
+              "queryRef": "campaign.Campaign Name",
+              "nativeQueryRef": "Campaign Name"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "All_Measures" } }, "Property": "CampaignRecip" } },
+              "queryRef": "All_Measures.CampaignRecip",
+              "nativeQueryRef": "Recipients"
+            },
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "All_Measures" } }, "Property": "CampaignOpenRate" } },
+              "queryRef": "All_Measures.CampaignOpenRate",
+              "nativeQueryRef": "Open Rate"
+            },
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "All_Measures" } }, "Property": "CampaignClickRate" } },
+              "queryRef": "All_Measures.CampaignClickRate",
+              "nativeQueryRef": "Click Rate"
+            },
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "All_Measures" } }, "Property": "CampaignConversion" } },
+              "queryRef": "All_Measures.CampaignConversion",
+              "nativeQueryRef": "Orders"
+            },
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "All_Measures" } }, "Property": "CampaignRevenue" } },
+              "queryRef": "All_Measures.CampaignRevenue",
+              "nativeQueryRef": "Revenue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [ { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "All_Measures" } }, "Property": "CampaignRevenue" } }, "direction": "Descending" } ]
+      }
+    },
+    "objects": {
+      "subTotals": [ { "properties": { "rowSubtotals": { "expr": { "Literal": { "Value": "false" } } }, "columnSubtotals": { "expr": { "Literal": { "Value": "false" } } } } } ],
+      "grid": [ { "properties": { "gridVertical": { "expr": { "Literal": { "Value": "false" } } }, "gridHorizontal": { "expr": { "Literal": { "Value": "true" } } }, "gridHorizontalColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#004D47'" } } } } }, "rowPadding": { "expr": { "Literal": { "Value": "3D" } } }, "textSize": { "expr": { "Literal": { "Value": "8D" } } } } } ],
+      "columnHeaders": [ { "properties": { "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#66B2A5'" } } } } }, "backColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#003D38'" } } } } }, "fontSize": { "expr": { "Literal": { "Value": "8D" } } } } } ],
+      "values": [ { "properties": { "fontColorPrimary": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } } }, "backColorPrimary": { "solid": { "color": { "expr": { "Literal": { "Value": "'#003D38'" } } } } }, "fontColorSecondary": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } } }, "backColorSecondary": { "solid": { "color": { "expr": { "Literal": { "Value": "'#002E2B'" } } } } } } } ],
+      "rowHeaders": [ { "properties": { "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } } }, "backColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#003D38'" } } } } }, "fontSize": { "expr": { "Literal": { "Value": "8D" } } } } } ]
+    },
+    "visualContainerObjects": {
+      "title": [ { "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "text": { "expr": { "Literal": { "Value": "'Top Campaigns by Revenue'" } } }, "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } } }, "fontSize": { "expr": { "Literal": { "Value": "10D" } } } } } ],
+      "background": [ { "properties": { "show": { "expr": { "Literal": { "Value": "true" } } }, "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#003D38'" } } } } }, "transparency": { "expr": { "Literal": { "Value": "0D" } } } } } ],
+      "visualHeader": [ { "properties": { "show": { "expr": { "Literal": { "Value": "false" } } } } } ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
