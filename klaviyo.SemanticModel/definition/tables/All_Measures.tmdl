@@ -7805,6 +7805,10 @@ table All_Measures
 
 		annotation SummarizationSetBy = Automatic
 
+	measure TotalEmailRevenue = [CampaignRevenue] + [FlowRevenue]
+		formatString: $#,0.00
+		lineageTag: d1a2b3c4-e5f6-7890-abcd-ef1234567805
+
 	partition All_Measures = m
 		mode: import
 		source =
